@@ -1,0 +1,231 @@
+fileFormatVersion: 2
+guid: 4c810abf3dab8a44ba9daf63303d099d
+timeCreated: 1521237263
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: D_Bat
+    100002: D_Body
+    100004: D_Chest_Jnt
+    100006: D_Face1
+    100008: D_Glasses
+    100010: D_Gloves
+    100012: D_Gloves1
+    100014: D_Hand
+    100016: D_Head_Jnt
+    100018: D_Helmet
+    100020: D_Helmet_Jnt
+    100022: D_joint1_scaleConstraint1_1
+    100024: D_L_Ankle_Jnt
+    100026: D_L_Ball_Jnt
+    100028: D_L_Clavicle_Jnt
+    100030: D_L_Elbow_Jnt
+    100032: D_L_Extra_Jnt
+    100034: D_L_Hip_Jnt
+    100036: D_L_Index_01_Jnt
+    100038: D_L_Index_02_Jnt
+    100040: D_L_Index_03_Jnt
+    100042: D_L_Knee_Jnt
+    100044: D_L_Middle_01_Jnt
+    100046: D_L_Middle_02_Jnt
+    100048: D_L_Middle_03_Jnt
+    100050: D_L_Pad_Jnt
+    100052: D_L_ProWrist_Jnt
+    100054: D_L_Shoulder_Jnt
+    100056: D_L_Thumb_01_Jnt
+    100058: D_L_Thumb_02_Jnt
+    100060: D_L_Toe_Jnt
+    100062: D_L_Wrist_Jnt
+    100064: D_Neck_Jnt
+    100066: D_Pads
+    100068: D_Pant
+    100070: D_Pelvis_Jnt
+    100072: D_Player
+    100074: D_R_Ankle_Jnt
+    100076: D_R_Ball_Jnt
+    100078: D_R_Clavicle_Jnt
+    100080: D_R_Elbow_Jnt
+    100082: D_R_Extra_Jnt
+    100084: D_R_Hip_Jnt
+    100086: D_R_Index_01_Jnt
+    100088: D_R_Index_02_Jnt
+    100090: D_R_Index_03_Jnt
+    100092: D_R_Knee_Jnt
+    100094: D_R_Middle_01_Jnt
+    100096: D_R_Middle_02_Jnt
+    100098: D_R_Middle_03_Jnt
+    100100: D_R_Pad_Jnt
+    100102: D_R_ProWrist_Jnt
+    100104: D_R_Shoulder_Jnt
+    100106: D_R_Thumb_01_Jnt
+    100108: D_R_Thumb_02_Jnt
+    100110: D_R_Toe_Jnt
+    100112: D_R_Wrist_Jnt
+    100114: D_Root_Jnt
+    100116: D_Shirt
+    100118: D_Shoes
+    100120: D_Spline_01_Jnt
+    100122: D_Spline_02_Jnt
+    100124: D_Transform_Jnt
+    100126: //RootNode
+    400000: D_Bat
+    400002: D_Body
+    400004: D_Chest_Jnt
+    400006: D_Face1
+    400008: D_Glasses
+    400010: D_Gloves
+    400012: D_Gloves1
+    400014: D_Hand
+    400016: D_Head_Jnt
+    400018: D_Helmet
+    400020: D_Helmet_Jnt
+    400022: D_joint1_scaleConstraint1_1
+    400024: D_L_Ankle_Jnt
+    400026: D_L_Ball_Jnt
+    400028: D_L_Clavicle_Jnt
+    400030: D_L_Elbow_Jnt
+    400032: D_L_Extra_Jnt
+    400034: D_L_Hip_Jnt
+    400036: D_L_Index_01_Jnt
+    400038: D_L_Index_02_Jnt
+    400040: D_L_Index_03_Jnt
+    400042: D_L_Knee_Jnt
+    400044: D_L_Middle_01_Jnt
+    400046: D_L_Middle_02_Jnt
+    400048: D_L_Middle_03_Jnt
+    400050: D_L_Pad_Jnt
+    400052: D_L_ProWrist_Jnt
+    400054: D_L_Shoulder_Jnt
+    400056: D_L_Thumb_01_Jnt
+    400058: D_L_Thumb_02_Jnt
+    400060: D_L_Toe_Jnt
+    400062: D_L_Wrist_Jnt
+    400064: D_Neck_Jnt
+    400066: D_Pads
+    400068: D_Pant
+    400070: D_Pelvis_Jnt
+    400072: D_Player
+    400074: D_R_Ankle_Jnt
+    400076: D_R_Ball_Jnt
+    400078: D_R_Clavicle_Jnt
+    400080: D_R_Elbow_Jnt
+    400082: D_R_Extra_Jnt
+    400084: D_R_Hip_Jnt
+    400086: D_R_Index_01_Jnt
+    400088: D_R_Index_02_Jnt
+    400090: D_R_Index_03_Jnt
+    400092: D_R_Knee_Jnt
+    400094: D_R_Middle_01_Jnt
+    400096: D_R_Middle_02_Jnt
+    400098: D_R_Middle_03_Jnt
+    400100: D_R_Pad_Jnt
+    400102: D_R_ProWrist_Jnt
+    400104: D_R_Shoulder_Jnt
+    400106: D_R_Thumb_01_Jnt
+    400108: D_R_Thumb_02_Jnt
+    400110: D_R_Toe_Jnt
+    400112: D_R_Wrist_Jnt
+    400114: D_Root_Jnt
+    400116: D_Shirt
+    400118: D_Shoes
+    400120: D_Spline_01_Jnt
+    400122: D_Spline_02_Jnt
+    400124: D_Transform_Jnt
+    400126: //RootNode
+    4300000: D_Body
+    4300002: D_Shirt
+    4300004: D_Pant
+    4300006: D_Face1
+    4300008: D_Bat
+    4300010: D_Shoes
+    4300012: D_Helmet
+    4300014: D_Glasses
+    4300016: D_Pads
+    4300018: D_Gloves
+    4300020: D_Hand
+    4300022: D_Gloves1
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: D_Bat
+    13700002: D_Body
+    13700004: D_Face1
+    13700006: D_Glasses
+    13700008: D_Gloves
+    13700010: D_Gloves1
+    13700012: D_Hand
+    13700014: D_Helmet
+    13700016: D_Pads
+    13700018: D_Pant
+    13700020: D_Shirt
+    13700022: D_Shoes
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
