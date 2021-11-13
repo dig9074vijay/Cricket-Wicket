@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GameManager : MonoBehaviour
 {
     private bool isGamePaused = false;
+    public int count;
+    public Text textCountdown;
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(StartCount());
     }
 
     // Update is called once per frame
@@ -27,8 +31,8 @@ public class GameManager : MonoBehaviour
         {
             ResumeGame();
         }
-
         
+       
     }
 
     void PauseGame()
@@ -40,4 +44,21 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
     }
+
+    IEnumerator StartCount() {
+        textCountdown.gameObject.SetActive(true);
+        while (count > 0)
+        {
+            textCountdown.text = count.ToString();
+            yield return new WaitForSeconds(1f);
+            count--;
+
+
+        }
+ 
+        textCountdown.text = "Go!";
+        yield return new WaitForSeconds(1f);
+        textCountdown.gameObject.SetActive(false);
+    }
+
 }
