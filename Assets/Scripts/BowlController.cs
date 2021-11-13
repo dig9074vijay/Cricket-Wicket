@@ -6,20 +6,21 @@ using UnityEngine.SceneManagement;
 
 public class BowlController : MonoBehaviour
 {
-    public GameObject ball;
-    Rigidbody rb;
-    public Transform TipSpot;
+    public GameObject ball;   //ball prefab
+    private GameObject newBall; //Instantiated GameObject
+    public int noOfBalls = 0;
+    public Transform TipSpot; 
     public float throwingSpeed = 5f;
-    public Vector3 throwingDirection = new Vector3(0,-10,-30);
-    private int count;
+    public Vector3 throwingDirection = new Vector3(0,-10,-30); 
+    public Text Over;
+
     
     // Start is called before the first frame update
     void Start()
     {
-        
-        rb =ball.GetComponent<Rigidbody>();
-        throwingDirection = TipSpot.position - ball.transform.position;
-        count = 0;
+        Over.text = "Over: "+ noOfBalls.ToString() + "/12";
+        newBall = NewBallCreated();
+        throwingDirection = TipSpot.position - newBall.transform.position;
     }
 
     // Update is called once per frame
@@ -31,19 +32,31 @@ public class BowlController : MonoBehaviour
              Debug.Log(count);
              SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
          } */
-        if (ball.transform.position.z < -12f)
+
+        //if the ball goes behind the wicket destroy the ball and update the over
+        //can be replaced by a function
+        if (newBall.transform.position.z < -12f)
         {
-            Destroy(this.ball);
+            DestroyImmediate(newBall,true);
+            Over.text = "Over: "+ noOfBalls.ToString() + "/12";
         }
 
 
     }
+
+    //Invoked by the end of bowling animation
     public void ThrowBall()
     {
-        
-        ball.SetActive(true);
-        
-        rb.AddForce(throwingDirection * throwingSpeed, ForceMode.Impulse);
 
+        newBall.SetActive(true); 
+        newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed, ForceMode.Impulse);
+
+    }
+
+
+    public GameObject NewBallCreated()
+    {
+        noOfBalls++;
+        return Instantiate(ball, ball.transform);
     }
 }
