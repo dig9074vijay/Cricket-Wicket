@@ -13,11 +13,13 @@ public class BowlController : MonoBehaviour
     public float throwingSpeed = 5f;
     public Vector3 throwingDirection = new Vector3(0,-10,-30); 
     public Text Over;
+    public Animator bowlingAnimator;
+    public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
 
-    
     // Start is called before the first frame update
     void Start()
     {
+        bowlingAnimator = this.gameObject.GetComponent<Animator>();
         Over.text = "Over: "+ noOfBalls.ToString() + "/12";
         newBall = NewBallCreated();
         throwingDirection = TipSpot.position - newBall.transform.position;
@@ -39,6 +41,9 @@ public class BowlController : MonoBehaviour
         {
             DestroyImmediate(newBall,true);
             Over.text = "Over: "+ noOfBalls.ToString() + "/12";
+            Random.Range(0, 4);
+            //Changing the controller of the animator to throw different balls
+          //  bowlingAnimator.runtimeAnimatorController = 
         }
 
 

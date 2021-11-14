@@ -706,7 +706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4784400382734832, guid: 74ba3879a8b7e4443928cfffc373a7a9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.47
+      value: 5.85
       objectReference: {fileID: 0}
     - target: {fileID: 4784400382734832, guid: 74ba3879a8b7e4443928cfffc373a7a9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1238,6 +1238,12 @@ MonoBehaviour:
   throwingSpeed: 2
   throwingDirection: {x: 0, y: -10, z: -30}
   Over: {fileID: 1516473829}
+  bowlingAnimator: {fileID: 0}
+  ballTypes:
+  - ARM BALL
+  - FAST
+  - LEG SPIN
+  - OFF SPIN
 --- !u!1001 &424721362
 PrefabInstance:
   m_ObjectHideFlags: 0
