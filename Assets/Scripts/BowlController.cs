@@ -19,7 +19,7 @@ public class BowlController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        bowlingAnimator = this.gameObject.GetComponent<Animator>();
+        bowlingAnimator = GetComponent<Animator>();
         Over.text = "Over: "+ noOfBalls.ToString() + "/12";
         newBall = NewBallCreated();
         throwingDirection = TipSpot.position - newBall.transform.position;
@@ -43,10 +43,18 @@ public class BowlController : MonoBehaviour
             Over.text = "Over: "+ noOfBalls.ToString() + "/12";
             Random.Range(0, 4);
             //Changing the controller of the animator to throw different balls
-          //  bowlingAnimator.runtimeAnimatorController = 
+            //  bowlingAnimator.runtimeAnimatorController =
+            NextBall();
         }
 
 
+    }
+
+    public void NextBall()
+    {
+        newBall = NewBallCreated();
+        throwingDirection = TipSpot.position - newBall.transform.position;
+        bowlingAnimator.SetBool("Finished", true);
     }
 
     //Invoked by the end of bowling animation
