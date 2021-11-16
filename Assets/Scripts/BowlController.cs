@@ -43,8 +43,7 @@ public class BowlController : MonoBehaviour
             DestroyImmediate(newBall,true);
             Over.text = "Over: "+ noOfBalls.ToString() + "/12";
             Random.Range(0, 4);
-            //Changing the controller of the animator to throw different balls
-            //  bowlingAnimator.runtimeAnimatorController =
+            
             NextBall();
         }
 
@@ -57,6 +56,7 @@ public class BowlController : MonoBehaviour
     public void NextBall()
     {
         newBall = NewBallCreated();
+        TipSpot.position = new Vector3(Random.Range(0.27f, 1.36f), TipSpot.position.y, Random.Range(-3.2f,-5.04f));
         throwingDirection = TipSpot.position - newBall.transform.position;
         bowlingAnimator.SetBool("Finished", true);
     }
