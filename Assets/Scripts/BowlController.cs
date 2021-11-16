@@ -15,6 +15,7 @@ public class BowlController : MonoBehaviour
     public Text Over;
     public Animator bowlingAnimator;
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
+    public GameObject gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -47,7 +48,10 @@ public class BowlController : MonoBehaviour
             NextBall();
         }
 
-
+        if(noOfBalls > 12)
+        {
+            gameManager.GetComponent<GameManager>().gameOver();
+        }
     }
 
     public void NextBall()

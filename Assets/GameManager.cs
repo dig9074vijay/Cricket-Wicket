@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private bool isGamePaused = false;
     public int count;
     public Text textCountdown;
+    public Canvas GameOver;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,13 @@ public class GameManager : MonoBehaviour
         }
         
        
+    }
+
+    public void gameOver()
+    {
+        GameOver.gameObject.SetActive(false);
+        isGamePaused = true;
+        Debug.Log("GameOver");
     }
 
     void PauseGame()
