@@ -17,6 +17,8 @@ public class BatsmenController : MonoBehaviour
         
     }
 
+
+    //batsmen shot animations called from the button clicks
     public void PlayHook() {
         anim.SetTrigger("Hook");
     }

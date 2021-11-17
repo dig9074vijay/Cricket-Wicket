@@ -40,26 +40,38 @@ public class BowlController : MonoBehaviour
         //can be replaced by a function
         if (newBall.transform.position.z < -12f)
         {
-            DestroyImmediate(newBall,true);
-            Over.text = "Over: "+ noOfBalls.ToString() + "/12";
-            Random.Range(0, 4);
-            
-            NextBall();
+            destroyBall();
         }
 
         if(noOfBalls > 12)
         {
+            Debug.Log("Inside if");
             gameManager.GetComponent<GameManager>().gameOver();
         }
     }
 
+    public void destroyBall() {
+        Destroy(newBall);
+        Over.text = "Over: " + noOfBalls.ToString() + "/12";
+        Random.Range(0, 4);
+
+        NextBall();
+    }
+
+
     public void NextBall()
     {
         newBall = NewBallCreated();
-        TipSpot.position = new Vector3(Random.Range(0.27f, 1.36f), TipSpot.position.y, Random.Range(-3.2f,-5.04f));
+        randomizeTip();
         throwingDirection = TipSpot.position - newBall.transform.position;
         bowlingAnimator.SetBool("Finished", true);
     }
+
+    void randomizeTip() {
+        TipSpot.position = new Vector3(Random.Range(0.27f, 1.36f), TipSpot.position.y, Random.Range(-3.2f, -5.04f)); //TipSpot position randomized
+
+    }
+
 
     //Invoked by the end of bowling animation
     public void ThrowBall()
