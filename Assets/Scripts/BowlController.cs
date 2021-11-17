@@ -13,9 +13,10 @@ public class BowlController : MonoBehaviour
     public float throwingSpeed = 5f;
     public Vector3 throwingDirection = new Vector3(0,-10,-30); 
     public Text Over;
-    public Animator bowlingAnimator;
+    Animator bowlingAnimator;
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     public GameObject gameManager;
+    public Vector3 error = new Vector3(0, -2f, 0);
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +79,7 @@ public class BowlController : MonoBehaviour
     {
 
         newBall.SetActive(true); 
-        newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed, ForceMode.Impulse);
+        newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed - error, ForceMode.Impulse);
 
     }
 
