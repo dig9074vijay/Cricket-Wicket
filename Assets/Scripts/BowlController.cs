@@ -8,12 +8,13 @@ public class BowlController : MonoBehaviour
 {
     public GameObject ball;   //ball prefab
     private GameObject newBall; //Instantiated GameObject
+    public WicketController wicketController;
     public int noOfBalls = 0;
     public Transform TipSpot; 
     public float throwingSpeed = 5f;
     public Vector3 throwingDirection = new Vector3(0,-10,-30); 
     public Text Over;
-    Animator bowlingAnimator;
+    public Animator bowlingAnimator;
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     public GameObject gameManager;
     public Vector3 error = new Vector3(0, -2f, 0);
@@ -53,6 +54,20 @@ public class BowlController : MonoBehaviour
 
     public void destroyBall() {
         Destroy(newBall);
+        if (wicketController.isBowled)
+        {
+            bowlingAnimator.SetBool("Finished", false);
+
+            bowlingAnimator.SetBool("Bowled", true);
+            wicketController.isBowled = false;
+        }
+        else
+        {
+            bowlingAnimator.SetBool("Finished", true);
+
+            bowlingAnimator.SetBool("Bowled", false);
+        }
+        bowlingAnimator.SetBool("Finished", true);
         Over.text = "Over: " + noOfBalls.ToString() + "/12";
         Random.Range(0, 4);
 
@@ -65,7 +80,7 @@ public class BowlController : MonoBehaviour
         newBall = NewBallCreated();
         randomizeTip();
         throwingDirection = TipSpot.position - newBall.transform.position;
-        bowlingAnimator.SetBool("Finished", true);
+       
     }
 
     void randomizeTip() {
