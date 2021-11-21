@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class BowlController : MonoBehaviour
 {
     public GameObject ball;   //ball prefab
-    private GameObject newBall; //Instantiated GameObject
+    public GameObject newBall; //Instantiated GameObject
     public WicketController wicketController;
     public int noOfBalls = 0;
     public Transform TipSpot; 
@@ -18,7 +18,7 @@ public class BowlController : MonoBehaviour
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     public GameObject gameManager;
     public Vector3 error = new Vector3(0, -2f, 0);
-
+    public GameObject ballDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,32 +26,32 @@ public class BowlController : MonoBehaviour
         Over.text = "Over: "+ noOfBalls.ToString() + "/12";
         newBall = NewBallCreated();
         throwingDirection = TipSpot.position - newBall.transform.position;
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        /* if(ball.transform.position.z < -12f && count <= 1)
-         {
-             count++;
-             Debug.Log(count);
-             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-         } */
-
-        //if the ball goes behind the wicket destroy the ball and update the over
-        //can be replaced by a function
-        if (newBall.transform.position.z < -12f)
-        {
-            destroyBall();
-        }
+   
+       
 
         if(noOfBalls > 12)
         {
             Debug.Log("Inside if");
             gameManager.GetComponent<GameManager>().gameOver();
         }
+
+        
+         ballDistance.GetComponent<TextMesh>().text = Vector3.Distance(ball.transform.position, new Vector3(0, 0, -7.61f)).ToString();
     }
 
+    private void FixedUpdate()
+    {
+        if (newBall.transform.position.z < -18f)
+        {
+            destroyBall();
+        }
+    }
     public void destroyBall() {
         Destroy(newBall);
         if (wicketController.isBowled)
