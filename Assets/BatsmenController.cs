@@ -7,6 +7,9 @@ public class BatsmenController : MonoBehaviour
     Animator anim;
     private Animator bowlingAnimator;
     public BowlController bowlController;
+    public string[] offShots = new string[]{"SquareCut","LateCut","Cover"};
+    public string[] legShots = new string[]{ "Hook", "Sweep", "StDrive" };
+    int index = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,10 +26,11 @@ public class BatsmenController : MonoBehaviour
 
 
     //batsmen shot animations called from the button clicks
-    public void PlayHook() {
+    public void PlayLeg() {
         if (/*bowlController.transform.position.z < 2.9f */ true )
         {
-            anim.SetTrigger("Hook");
+            index = Random.Range(0, 2);
+            anim.SetTrigger(legShots[index]);
             Invoke("LegShot",0.1f);
            
         }
@@ -37,11 +41,12 @@ public class BatsmenController : MonoBehaviour
        }
     }
 
-    public void PlayLateCut()
+    public void PlayOff()
     {
         if (true)
         {
-            anim.SetTrigger("LateCut");
+            index = Random.Range(0, 2);
+            anim.SetTrigger(offShots[index]);
             Invoke("OffShot",0.1f);
         }
         else
@@ -56,6 +61,8 @@ public class BatsmenController : MonoBehaviour
         anim.SetTrigger("Cover");
     }
 
+
+    //adding force to the balls
     public void LegShot()
     {
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(-10f, 10f, 12f), ForceMode.Impulse);
