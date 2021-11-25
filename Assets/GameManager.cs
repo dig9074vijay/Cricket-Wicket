@@ -34,9 +34,7 @@ public class GameManager : MonoBehaviour
         else
         {
             ResumeGame();
-        }
-        
-       
+        } 
     }
 
     public void gameOver()
@@ -64,8 +62,6 @@ public class GameManager : MonoBehaviour
             textCountdown.text = count.ToString();
             yield return new WaitForSeconds(1f);
             count--;
-
-
         }
  
         textCountdown.text = "Go!";
