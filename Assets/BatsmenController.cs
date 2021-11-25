@@ -8,10 +8,10 @@ public class BatsmenController : MonoBehaviour
     public Shaker MyShaker;
     //Inspector field for a Shake Preset to use as the shake parameters.
     public ShakePreset ShakePreset;
-
+    public GameObject bat;
     public GameObject EntryWindow;
     public GameObject ExitWindow;
-  //  public BallHitWindow ballHitWindow;
+  //public BallHitWindow ballHitWindow;
     Animator anim;
     private Animator bowlingAnimator;
     public BowlController bowlController;
@@ -19,6 +19,11 @@ public class BatsmenController : MonoBehaviour
     public string[] legShots = new string[]{ "Hook", "Sweep", "StDrive" };
     int index = 0;
     public CameraShaker cameraShaker;
+    public int[] scores = new int[] { 1, 2, 4, 6 };
+    public GameObject Boom;
+
+    int runIndex;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +34,7 @@ public class BatsmenController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      Debug.Log(BallHitWindow.canHit);
+    //  Debug.Log(BallHitWindow.canHit);
 
     }
 
@@ -47,7 +52,6 @@ public class BatsmenController : MonoBehaviour
         }
         else
         {
-
             anim.SetTrigger("Hook");
         }
     }
@@ -76,16 +80,38 @@ public class BatsmenController : MonoBehaviour
     //adding force to the balls
     public void LegShot()
     {
+        StartCoroutine(HitWithBoom());
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(-10f, 10f, 12f), ForceMode.Impulse);
+        runIndex = Random.Range(0, 3);
+        bowlController.score += scores[runIndex];
+        bowlController.Score.text = "Score: " + bowlController.score.ToString();
+
         Debug.Log("Shot!!!");
         BallHitWindow.canHit = false;
     }
 
     public void OffShot()
     {
+        StartCoroutine(HitWithBoom());
+
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(20f, 10f, 12f), ForceMode.Impulse);
+        runIndex = Random.Range(0, 3);
+        bowlController.score += scores[runIndex];
+        bowlController.Score.text = "Score: " + bowlController.score.ToString();
+
         Debug.Log("Shot!!!");
         BallHitWindow.canHit = false;
+
+    }
+
+    IEnumerator HitWithBoom()
+    {
+        bowlController.newBall.transform.parent = bat.transform;
+        Boom.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        bowlController.newBall.transform.parent = transform.root;
+        Boom.SetActive(false);
+        Debug.Log("HitWithBoom");
 
     }
 }

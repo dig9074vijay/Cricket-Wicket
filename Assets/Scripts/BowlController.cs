@@ -8,6 +8,7 @@ public class BowlController : MonoBehaviour
 {
     public GameObject ball;   //ball prefab
     public GameObject newBall; //Instantiated GameObject
+    public int score = 0;
     public WicketController wicketController;
     int noOfBalls = 0;
     //public int a;
@@ -15,16 +16,22 @@ public class BowlController : MonoBehaviour
     public float throwingSpeed = 5f;
     public Vector3 throwingDirection = new Vector3(0,-10,-30); 
     public Text Over;
+    public Text Score;
+    public Text FinalScore;
     Animator bowlingAnimator;
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     public GameObject gameManager;
     public Vector3 error = new Vector3(0, -2f, 0);
+
+    public GameObject EarlyLateBar;
     //public GameObject ballDistance;
     // Start is called before the first frame update
     void Start()
     {
         bowlingAnimator = GetComponent<Animator>();
         Over.text = "Over: "+ noOfBalls.ToString() + "/12";
+        Score.text = "Score: " + score.ToString();
+
         newBall = NewBallCreated();
         throwingDirection = TipSpot.position - ball.transform.position;
     }
@@ -34,7 +41,10 @@ public class BowlController : MonoBehaviour
     {
         if(noOfBalls > 12)
         {
-            Debug.Log("Inside if");
+            Debug.Log("Inside if GameOVER");
+            FinalScore.text = "Your Score: " + score.ToString();
+           
+
             gameManager.GetComponent<GameManager>().gameOver();
         }
         if (newBall.transform.position.z < -18f)
@@ -47,6 +57,7 @@ public class BowlController : MonoBehaviour
    
     public void destroyBall() {
         Destroy(newBall);
+        EarlyLateBar.SetActive(true);
         if (wicketController.isBowled)
         {
             bowlingAnimator.SetBool("Finished", false);
@@ -81,7 +92,10 @@ public class BowlController : MonoBehaviour
     //Invoked by the end of bowling animation
     public void ThrowBall()
     {
+        EarlyLateBar.SetActive(false);
+
         newBall.SetActive(true);
+
         //newBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,-10f,30f) * throwingSpeed, ForceMode.Impulse);
        // Debug.Log("ThrowBall Invoked");
         newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed - error, ForceMode.Impulse);

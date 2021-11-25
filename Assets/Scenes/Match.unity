@@ -1910,7 +1910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -27.66}
+  m_AnchoredPosition: {x: 0, y: -14.76}
   m_SizeDelta: {x: 800, y: 57}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &709433774
@@ -2089,10 +2089,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 963194230}
     - target: {fileID: 1298301760, guid: d9bb9649388b468469aa280896961b18, type: 3}
-      propertyPath: ballHitWindow
-      value: 
-      objectReference: {fileID: 5251892161657848314, guid: a930a077d3bae47c1b0b0ed702eb5740, type: 3}
-    - target: {fileID: 1298301760, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: bowlController
       value: 
       objectReference: {fileID: 416619915}
@@ -2142,6 +2138,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1332742430736561868, guid: d9bb9649388b468469aa280896961b18, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2373,7 +2373,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1054752788}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0203689, y: 1.0413014, z: 3.89}
+  m_LocalPosition: {x: 1.0203689, y: 1.0413014, z: -3.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2771,9 +2771,9 @@ RectTransform:
   m_Father: {fileID: 1324606720}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -84.33008, y: -17.099976}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 715.6699, y: -17.099976}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1516473829
@@ -2789,7 +2789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2969,8 +2969,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

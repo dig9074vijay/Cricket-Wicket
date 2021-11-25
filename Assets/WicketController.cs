@@ -8,6 +8,7 @@ public class WicketController : MonoBehaviour
     public BowlController bowlController;
     public AudioSource audioSource;
     public bool isBowled = false;
+   // BowlController bowlControllerWicket;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +27,9 @@ public class WicketController : MonoBehaviour
         if(collision.gameObject.name == "Ball(Clone)")
         {
             isBowled = true;
-       
+            bowlController.score -= 2;
+            bowlController.Score.text = "Score: " + bowlController.score.ToString();
+
             bowlController.destroyBall();
             audioSource.Play();
             StartCoroutine(PlaceWickets());
