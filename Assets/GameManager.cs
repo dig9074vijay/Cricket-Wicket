@@ -9,10 +9,13 @@ public class GameManager : MonoBehaviour
     
         
         
-    private bool isGamePaused = false;
+    private bool isGamePaused = true;
     public int count;
     public Text textCountdown;
     public Canvas GameOver;
+    public Canvas GameCanvas;
+    public Canvas HowToPlay;
+    public GameObject LCD;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +47,18 @@ public class GameManager : MonoBehaviour
         isGamePaused = true;
         Debug.Log("GameOver");
     }
+
+    public void StartGame() {
+        HowToPlay.gameObject.SetActive(false);
+        LCD.gameObject.SetActive(true);
+
+        GameCanvas.gameObject.SetActive(true);
+
+
+        isGamePaused = false;
+        Debug.Log("GameStart");
+    }
+
 
     void PauseGame()
     {
