@@ -40,35 +40,43 @@ public class BatsmenController : MonoBehaviour
 
     //batsmen shot animations called from the button clicks
     public void PlayLeg() {
-        if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit )
+        if (bowlController.canSwing)
         {
-            index = Random.Range(0, 2);
-            anim.SetTrigger(legShots[index]);
-            LegShot();
-            Debug.Log("Play Leg");
-           // MyShaker.Shake(ShakePreset);
-            //    StartCoroutine(cameraShaker.Shake(0.15f,0.35f));
-            //Invoke("LegShot",0.1f);
-        }
-        else
-        {
-            anim.SetTrigger("Hook");
+            if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit)
+            {
+                index = Random.Range(0, 2);
+                anim.SetTrigger(legShots[index]);
+                LegShot();
+                Debug.Log("Play Leg");
+                // MyShaker.Shake(ShakePreset);
+                //    StartCoroutine(cameraShaker.Shake(0.15f,0.35f));
+                //Invoke("LegShot",0.1f);
+            }
+            else
+            {
+                anim.SetTrigger("Hook");
+            }
+            bowlController.canSwing = false;
         }
     }
 
     public void PlayOff()
     {
-        if (BallHitWindow.canHit)
+        if (bowlController.canSwing)
         {
-            index = Random.Range(0, 2);
-            anim.SetTrigger(offShots[index]);
-            OffShot();
-           // MyShaker.Shake(ShakePreset);
-            // StartCoroutine(cameraShaker.Shake(0.15f,0.35f));
-        }
-        else
-        {
-            anim.SetTrigger("LateCut");
+            if (BallHitWindow.canHit)
+            {
+                index = Random.Range(0, 2);
+                anim.SetTrigger(offShots[index]);
+                OffShot();
+                // MyShaker.Shake(ShakePreset);
+                // StartCoroutine(cameraShaker.Shake(0.15f,0.35f));
+            }
+            else
+            {
+                anim.SetTrigger("LateCut");
+            }
+            bowlController.canSwing = false;
         }
     }
 

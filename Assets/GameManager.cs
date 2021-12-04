@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    
-        
-        
+
+
+    public bool isStart = false;   
     private bool isGamePaused = true;
     public int count;
     public Text textCountdown;
@@ -20,11 +20,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(StartCount());
+        if (isStart) { StartGame(); }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+  
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isGamePaused = !isGamePaused;

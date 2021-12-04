@@ -22,7 +22,7 @@ public class BowlController : MonoBehaviour
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     public GameObject gameManager;
     public Vector3 error = new Vector3(0, -2f, 0);
-
+    public bool canSwing = false;
     public GameObject EarlyLateBar;
     //public GameObject ballDistance;
     // Start is called before the first frame update
@@ -95,7 +95,7 @@ public class BowlController : MonoBehaviour
         EarlyLateBar.SetActive(false);
 
         newBall.SetActive(true);
-
+        canSwing = true;
         //newBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,-10f,30f) * throwingSpeed, ForceMode.Impulse);
        // Debug.Log("ThrowBall Invoked");
         newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed - error, ForceMode.Impulse);
