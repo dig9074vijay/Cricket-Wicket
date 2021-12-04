@@ -22,6 +22,10 @@ public class BatsmenController : MonoBehaviour
     public int[] scores = new int[] { 1, 2, 4, 6 };
     public GameObject Boom;
 
+    public GameObject Six;
+    public GameObject Four;
+
+
     int runIndex;
 
     // Start is called before the first frame update
@@ -93,7 +97,17 @@ public class BatsmenController : MonoBehaviour
         runIndex = Random.Range(0, 3);
         bowlController.score += scores[runIndex];
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
+        if (scores[runIndex] == 6)
+        {
+            StartCoroutine(BoundaryDisplay(Six));
 
+
+        }
+        else if(scores[runIndex]== 4)
+        {
+            StartCoroutine(BoundaryDisplay(Four));
+        }
+      
         Debug.Log("Shot!!!");
         BallHitWindow.canHit = false;
     }
@@ -122,4 +136,13 @@ public class BatsmenController : MonoBehaviour
         Debug.Log("HitWithBoom");
 
     }
+
+    IEnumerator BoundaryDisplay(GameObject gO) {
+        gO.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        gO.SetActive(false);
+
+    }
+
 }

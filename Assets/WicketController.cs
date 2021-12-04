@@ -8,6 +8,7 @@ public class WicketController : MonoBehaviour
     public BowlController bowlController;
     public AudioSource audioSource;
     public bool isBowled = false;
+    public GameObject outDisplay;
    // BowlController bowlControllerWicket;
     // Start is called before the first frame update
     void Start()
@@ -42,7 +43,9 @@ public class WicketController : MonoBehaviour
         while (true)
         {
             anim.SetBool("Bowled", true);
+            outDisplay.SetActive(true);
             yield return new WaitForSeconds(1f);
+            outDisplay.SetActive(false);
             anim.SetBool("Bowled", false);
             break;
         }
