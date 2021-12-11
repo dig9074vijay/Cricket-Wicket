@@ -2551,6 +2551,10 @@ MonoBehaviour:
   error: {x: 0, y: -1.25, z: 0}
   canSwing: 0
   EarlyLateBar: {fileID: 37052834}
+  lcd_arm: {fileID: 1851073629}
+  lcd_fast: {fileID: 1713488110}
+  lcd_off: {fileID: 1200489786}
+  lcd_leg: {fileID: 369102254}
 --- !u!1001 &424721362
 PrefabInstance:
   m_ObjectHideFlags: 0

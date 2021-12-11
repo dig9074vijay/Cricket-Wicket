@@ -11,7 +11,7 @@ public class BowlController : MonoBehaviour
     public int score = 0;
     public WicketController wicketController;
     int noOfBalls = 0;
-    int ballTypeIndex;
+    int ballTypeIndex = 0;
     public Transform TipSpot; 
     public float throwingSpeed = 5f;
     public Vector3 throwingDirection = new Vector3(0,-10,-30); 
@@ -24,6 +24,19 @@ public class BowlController : MonoBehaviour
     public Vector3 error = new Vector3(0, -2f, 0);
     public bool canSwing = false;
     public GameObject EarlyLateBar;
+
+    float tipSpotLeftPosition = 0.27f;
+    float tipSpotRightPosition = 1.36f;
+
+
+    public GameObject lcd_arm;
+    public GameObject lcd_fast;
+
+    public GameObject lcd_off;
+
+    public GameObject lcd_leg;
+
+
     //public GameObject ballDistance;
     // Start is called before the first frame update
     void Start()
@@ -33,6 +46,9 @@ public class BowlController : MonoBehaviour
         Score.text = "Score: " + score.ToString();
 
         newBall = NewBallCreated();
+
+        ChooseBallType();
+
         throwingDirection = TipSpot.position - ball.transform.position;
      
     }
@@ -73,7 +89,6 @@ public class BowlController : MonoBehaviour
             bowlingAnimator.SetBool("Bowled", false);
         }
         bowlingAnimator.SetBool("Finished", true);
-        ballTypeIndex = Random.Range(0, 3);
         
         Over.text = "Over: " + noOfBalls.ToString() + "/12";
         Random.Range(0, 4);
@@ -84,12 +99,14 @@ public class BowlController : MonoBehaviour
     public void NextBall()
     {
         newBall = NewBallCreated();
+        ChooseBallType();
+
         randomizeTip();
         throwingDirection = TipSpot.position - newBall.transform.position;  
     }
 
     void randomizeTip() {
-        TipSpot.position = new Vector3(Random.Range(0.27f, 1.36f), TipSpot.position.y, Random.Range(-3.2f, -5.04f)); //TipSpot position randomized
+        TipSpot.position = new Vector3(Random.Range(tipSpotLeftPosition, tipSpotRightPosition), TipSpot.position.y, Random.Range(-3.2f, -5.04f)); //TipSpot position randomized
     }
 
     //Invoked by the end of bowling animation
@@ -107,5 +124,38 @@ public class BowlController : MonoBehaviour
     {
         noOfBalls++;
         return Instantiate(ball);
+    }
+
+    void ChooseBallType()
+    {
+        ballTypeIndex = Random.Range(0, 3);
+        if (ballTypes[ballTypeIndex] == "ARM BALL")
+        {
+            lcd_arm.SetActive(true);
+            lcd_fast.SetActive(false);
+            lcd_off.SetActive(false);
+            lcd_leg.SetActive(false);
+        }
+        else if (ballTypes[ballTypeIndex] == "FAST")
+        {
+            lcd_arm.SetActive(false);
+            lcd_fast.SetActive(true);
+            lcd_off.SetActive(false);
+            lcd_leg.SetActive(false);
+        }
+        else if (ballTypes[ballTypeIndex] == "LEG SPIN")
+        {
+            lcd_arm.SetActive(false);
+            lcd_fast.SetActive(false);
+            lcd_off.SetActive(false);
+            lcd_leg.SetActive(true);
+        }
+        else if (ballTypes[ballTypeIndex] == "OFF SPIN")
+        {
+            lcd_arm.SetActive(false);
+            lcd_fast.SetActive(false);
+            lcd_off.SetActive(true);
+            lcd_leg.SetActive(false);
+        }
     }
 }
