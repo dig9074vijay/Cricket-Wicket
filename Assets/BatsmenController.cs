@@ -140,7 +140,7 @@ public class BatsmenController : MonoBehaviour
     IEnumerator BoundaryDisplay(GameObject gO) {
         gO.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         gO.SetActive(false);
 
     }
