@@ -14,7 +14,10 @@ public class BowlController : MonoBehaviour
     int ballTypeIndex = 0;
     public Transform TipSpot; 
     public float throwingSpeed = 5f;
-    public Vector3 throwingDirection = new Vector3(0,-10,-30); 
+    public Vector3 throwingDirection = new Vector3(0,-10,-30);
+    public Vector3 spinDirection = new Vector3(0, 0, 0);
+    public float spinIntensity = 5f;
+
     public Text Over;
     public Text Score;
     public Text FinalScore;
@@ -24,7 +27,10 @@ public class BowlController : MonoBehaviour
     public Vector3 error = new Vector3(0, -2f, 0);
     public bool canSwing = false;
     public GameObject EarlyLateBar;
-
+    //bool offBall = false;
+    //bool armBall = false;
+    //bool fast = false;
+    //bool legBall = false;
     float tipSpotLeftPosition = 0.27f;
     float tipSpotRightPosition = 1.36f;
 
@@ -68,10 +74,20 @@ public class BowlController : MonoBehaviour
         {
             destroyBall();
         }
+
+
         // ballDistance.GetComponent<TextMesh>().text = Vector3.Distance(ball.transform.position, new Vector3(0, 0, -7.61f)).ToString();
     }
 
-   
+    private void FixedUpdate()
+    {
+        if (newBall.transform.position.z >= (TipSpot.position.z - 0.1f) && newBall.transform.position.z <= (TipSpot.position.z + 0.1f))
+        {
+        newBall.GetComponent<Rigidbody>().AddForce(spinDirection * spinIntensity, ForceMode.Impulse);
+           
+        }
+    }
+
     public void destroyBall() {
         Destroy(newBall);
         EarlyLateBar.SetActive(true);
@@ -135,6 +151,13 @@ public class BowlController : MonoBehaviour
             lcd_fast.SetActive(false);
             lcd_off.SetActive(false);
             lcd_leg.SetActive(false);
+            tipSpotLeftPosition = 0.27f;
+            tipSpotRightPosition = 0.9f;
+            spinDirection = new Vector3(0,0,0);
+            //armBall = true;
+            //offBall = false;
+            //legBall = false;
+            //fast = false;
         }
         else if (ballTypes[ballTypeIndex] == "FAST")
         {
@@ -142,6 +165,14 @@ public class BowlController : MonoBehaviour
             lcd_fast.SetActive(true);
             lcd_off.SetActive(false);
             lcd_leg.SetActive(false);
+            tipSpotLeftPosition = 0.27f;
+            tipSpotRightPosition = 1.1f;
+            spinDirection = new Vector3(0, 0, 0);
+
+            //armBall = false;
+            //offBall = false;
+            //legBall = false;
+            //fast = true;
         }
         else if (ballTypes[ballTypeIndex] == "LEG SPIN")
         {
@@ -149,6 +180,14 @@ public class BowlController : MonoBehaviour
             lcd_fast.SetActive(false);
             lcd_off.SetActive(false);
             lcd_leg.SetActive(true);
+            tipSpotLeftPosition = 0.27f;
+            tipSpotRightPosition = 0.7f;
+            spinDirection = new Vector3(0.5f, 0, 0);
+
+            //armBall = false;
+            //offBall = false;
+            //legBall = true;
+            //fast = false;
         }
         else if (ballTypes[ballTypeIndex] == "OFF SPIN")
         {
@@ -156,6 +195,14 @@ public class BowlController : MonoBehaviour
             lcd_fast.SetActive(false);
             lcd_off.SetActive(true);
             lcd_leg.SetActive(false);
+            tipSpotLeftPosition = 0.7f;
+            tipSpotRightPosition = 1.36f;
+            spinDirection = new Vector3(-0.5f, 0, 0);
+
+            //armBall = false;
+            //offBall = true;
+            //legBall = false;
+            //fast = false;
         }
     }
 }
