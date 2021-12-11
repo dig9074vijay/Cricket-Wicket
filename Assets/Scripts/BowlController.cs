@@ -11,7 +11,7 @@ public class BowlController : MonoBehaviour
     public int score = 0;
     public WicketController wicketController;
     int noOfBalls = 0;
-    //public int a;
+    int ballTypeIndex;
     public Transform TipSpot; 
     public float throwingSpeed = 5f;
     public Vector3 throwingDirection = new Vector3(0,-10,-30); 
@@ -34,6 +34,7 @@ public class BowlController : MonoBehaviour
 
         newBall = NewBallCreated();
         throwingDirection = TipSpot.position - ball.transform.position;
+     
     }
 
     // Update is called once per frame
@@ -72,6 +73,8 @@ public class BowlController : MonoBehaviour
             bowlingAnimator.SetBool("Bowled", false);
         }
         bowlingAnimator.SetBool("Finished", true);
+        ballTypeIndex = Random.Range(0, 3);
+        
         Over.text = "Over: " + noOfBalls.ToString() + "/12";
         Random.Range(0, 4);
         NextBall();
@@ -93,7 +96,6 @@ public class BowlController : MonoBehaviour
     public void ThrowBall()
     {
         EarlyLateBar.SetActive(false);
-
         newBall.SetActive(true);
         canSwing = true;
         //newBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,-10f,30f) * throwingSpeed, ForceMode.Impulse);

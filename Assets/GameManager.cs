@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(StartCount());
         if (isStart) { StartGame(); }
+   
 
     }
 
