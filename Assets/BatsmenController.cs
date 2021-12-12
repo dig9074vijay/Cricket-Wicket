@@ -19,7 +19,7 @@ public class BatsmenController : MonoBehaviour
     public string[] legShots = new string[]{ "Hook", "Sweep", "StDrive" };
     int index = 0;
     public CameraShaker cameraShaker;
-    public int[] scores = new int[] { 1, 2, 4, 6 };
+    public int[] scores = new int[] { 1, 2, 3, 4, 6 };
     public GameObject Boom;
 
     public GameObject Six;
@@ -53,7 +53,7 @@ public class BatsmenController : MonoBehaviour
         {
             if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit && bowlController.canPlayLeg)
             {
-                index = Random.Range(0, 2);
+                index = Random.Range(0, 3);
                 anim.SetTrigger(legShots[index]);
                 LegShot();
                 Debug.Log("Play Leg");
@@ -63,7 +63,7 @@ public class BatsmenController : MonoBehaviour
             }
             else
             {
-                index = Random.Range(0, 2);
+                index = Random.Range(0, 3);
                 anim.SetTrigger(legShots[index]);
                 StartCoroutine(BoundaryDisplay(Miss));
 
@@ -80,7 +80,7 @@ public class BatsmenController : MonoBehaviour
         {
             if (BallHitWindow.canHit && bowlController.canPlayOff)
             {
-                index = Random.Range(0, 2);
+                index = Random.Range(0, 3);
                 anim.SetTrigger(offShots[index]);
                 OffShot();
                 // MyShaker.Shake(ShakePreset);
@@ -88,7 +88,7 @@ public class BatsmenController : MonoBehaviour
             }
             else
             {
-                index = Random.Range(0, 2);
+                index = Random.Range(0, 3);
 
                 anim.SetTrigger(offShots[index]);
                 StartCoroutine(BoundaryDisplay(Miss));
@@ -107,7 +107,17 @@ public class BatsmenController : MonoBehaviour
     {
         StartCoroutine(HitWithBoom());
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(-10f, 10f, 12f), ForceMode.Impulse);
-        runIndex = Random.Range(0, 3);
+        if(HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
+        {
+            runIndex = Random.Range(3, 5);
+
+        }
+        else
+        {
+            runIndex = Random.Range(0,3);
+
+
+        }
         bowlController.score += scores[runIndex];
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
         if (scores[runIndex] == 6)
@@ -130,10 +140,29 @@ public class BatsmenController : MonoBehaviour
         StartCoroutine(HitWithBoom());
 
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(20f, 10f, 12f), ForceMode.Impulse);
-        runIndex = Random.Range(0, 3);
+        if (HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
+        {
+            runIndex = Random.Range(3, 5);
+
+        }
+        else
+        {
+            runIndex = Random.Range(0, 3);
+
+
+        }
         bowlController.score += scores[runIndex];
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
+        if (scores[runIndex] == 6)
+        {
+            StartCoroutine(BoundaryDisplay(Six));
 
+
+        }
+        else if (scores[runIndex] == 4)
+        {
+            StartCoroutine(BoundaryDisplay(Four));
+        }
         Debug.Log("Shot!!!");
         BallHitWindow.canHit = false;
 
