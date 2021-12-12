@@ -24,8 +24,10 @@ public class BatsmenController : MonoBehaviour
 
     public GameObject Six;
     public GameObject Four;
-
-
+    public GameObject Miss;
+    Transform HitTimePosition;
+    public GameObject HitTime; //UI element for displaying how later or early the ball is hit
+   // public float HitPositionZ;
     int runIndex;
 
     // Start is called before the first frame update
@@ -33,6 +35,7 @@ public class BatsmenController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         bowlingAnimator = bowlController.GetComponent<Animator>();
+        HitTimePosition = HitTime.GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -44,9 +47,11 @@ public class BatsmenController : MonoBehaviour
 
     //batsmen shot animations called from the button clicks
     public void PlayLeg() {
+
+        HitTimePosition.localPosition = new Vector3(0f,Remap(bowlController.newBall.transform.position.z, -7.23f,-4.2f,-32f, 34f),0f);
         if (bowlController.canSwing)
         {
-            if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit)
+            if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit && bowlController.canPlayLeg)
             {
                 index = Random.Range(0, 2);
                 anim.SetTrigger(legShots[index]);
@@ -58,7 +63,10 @@ public class BatsmenController : MonoBehaviour
             }
             else
             {
-                anim.SetTrigger("Hook");
+                index = Random.Range(0, 2);
+                anim.SetTrigger(legShots[index]);
+                StartCoroutine(BoundaryDisplay(Miss));
+
             }
             bowlController.canSwing = false;
         }
@@ -66,9 +74,11 @@ public class BatsmenController : MonoBehaviour
 
     public void PlayOff()
     {
+        HitTimePosition.localPosition = new Vector3(0f, Remap(bowlController.newBall.transform.position.z, -4.2f, -7.23f, 34f, -32f), 0f);
+
         if (bowlController.canSwing)
         {
-            if (BallHitWindow.canHit)
+            if (BallHitWindow.canHit && bowlController.canPlayOff)
             {
                 index = Random.Range(0, 2);
                 anim.SetTrigger(offShots[index]);
@@ -78,7 +88,10 @@ public class BatsmenController : MonoBehaviour
             }
             else
             {
-                anim.SetTrigger("LateCut");
+                index = Random.Range(0, 2);
+
+                anim.SetTrigger(offShots[index]);
+                StartCoroutine(BoundaryDisplay(Miss));
             }
             bowlController.canSwing = false;
         }
@@ -134,15 +147,18 @@ public class BatsmenController : MonoBehaviour
         bowlController.newBall.transform.parent = transform.root;
         Boom.SetActive(false);
         Debug.Log("HitWithBoom");
-
     }
 
     IEnumerator BoundaryDisplay(GameObject gO) {
         gO.SetActive(true);
-
         yield return new WaitForSeconds(2f);
         gO.SetActive(false);
+    }
 
+    public static float Remap(float input, float oldLow, float oldHigh, float newLow, float newHigh)
+    {
+        float t = Mathf.InverseLerp(oldLow, oldHigh, input);
+        return Mathf.Lerp(newLow, newHigh, t);
     }
 
 }

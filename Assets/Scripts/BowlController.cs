@@ -34,7 +34,8 @@ public class BowlController : MonoBehaviour
     float tipSpotLeftPosition = 0.27f;
     float tipSpotRightPosition = 1.36f;
 
-
+    public bool  canPlayOff = false;
+    public bool  canPlayLeg = false;
     public GameObject lcd_arm;
     public GameObject lcd_fast;
 
@@ -83,7 +84,7 @@ public class BowlController : MonoBehaviour
     {
         if (newBall.transform.position.z >= (TipSpot.position.z - 0.1f) && newBall.transform.position.z <= (TipSpot.position.z + 0.1f))
         {
-        newBall.GetComponent<Rigidbody>().AddForce(spinDirection * spinIntensity, ForceMode.Impulse);
+            newBall.GetComponent<Rigidbody>().AddForce(spinDirection * spinIntensity, ForceMode.Impulse);
            
         }
     }
@@ -154,6 +155,8 @@ public class BowlController : MonoBehaviour
             tipSpotLeftPosition = 0.27f;
             tipSpotRightPosition = 0.9f;
             spinDirection = new Vector3(0,0,0);
+            canPlayLeg = true;
+            canPlayOff = true;
             //armBall = true;
             //offBall = false;
             //legBall = false;
@@ -168,7 +171,8 @@ public class BowlController : MonoBehaviour
             tipSpotLeftPosition = 0.27f;
             tipSpotRightPosition = 1.1f;
             spinDirection = new Vector3(0, 0, 0);
-
+            canPlayLeg = true;
+            canPlayOff = true;
             //armBall = false;
             //offBall = false;
             //legBall = false;
@@ -183,7 +187,8 @@ public class BowlController : MonoBehaviour
             tipSpotLeftPosition = 0.27f;
             tipSpotRightPosition = 0.7f;
             spinDirection = new Vector3(0.5f, 0, 0);
-
+            canPlayLeg = true;
+            canPlayOff = false;
             //armBall = false;
             //offBall = false;
             //legBall = true;
@@ -198,7 +203,8 @@ public class BowlController : MonoBehaviour
             tipSpotLeftPosition = 0.7f;
             tipSpotRightPosition = 1.36f;
             spinDirection = new Vector3(-0.5f, 0, 0);
-
+            canPlayLeg = false;
+            canPlayOff = true;
             //armBall = false;
             //offBall = true;
             //legBall = false;
