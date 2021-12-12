@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
     public Canvas GameCanvas;
     public Canvas HowToPlay;
     public GameObject LCD;
+    public GameObject Bowler;
+    public Camera mainCamera;
+    public Camera batsmenCamera;
+    public Camera stadiumCamera;
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(StartCount());
-        if (isStart) { StartGame(); }
+
+        //Invoke("StartGameAfterTimeline", 9.5f);
    
 
     }
@@ -52,14 +56,29 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameOver");
     }
 
-    public void StartGame() {
+    public void StartGame()
+    {
+        isGamePaused = false;
         HowToPlay.gameObject.SetActive(false);
+
+        Invoke("StartGameAfterTimeline", 9.45f);
+    }
+    
+
+    void StartGameAfterTimeline()
+    {
+        StartCoroutine(StartCount());
+        Bowler.SetActive(true);
+        mainCamera.enabled = true;
+        stadiumCamera.enabled = false;
+
+        batsmenCamera.enabled = false;
+
         LCD.gameObject.SetActive(true);
 
         GameCanvas.gameObject.SetActive(true);
+       
 
-
-        isGamePaused = false;
         Debug.Log("GameStart");
     }
 
@@ -75,7 +94,8 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator StartCount() {
-        textCountdown.gameObject.SetActive(true);
+
+       textCountdown.gameObject.SetActive(true);
         while (count > 0)
         {
             textCountdown.text = count.ToString();

@@ -145,7 +145,7 @@ public class BowlController : MonoBehaviour
 
     void ChooseBallType()
     {
-        ballTypeIndex = Random.Range(0, 3);
+        ballTypeIndex = Random.Range(0, 4);
         if (ballTypes[ballTypeIndex] == "ARM BALL")
         {
             lcd_arm.SetActive(true);
@@ -200,7 +200,7 @@ public class BowlController : MonoBehaviour
             lcd_fast.SetActive(false);
             lcd_off.SetActive(true);
             lcd_leg.SetActive(false);
-            tipSpotLeftPosition = 0.7f;
+            tipSpotLeftPosition = 0.9f;
             tipSpotRightPosition = 1.36f;
             spinDirection = new Vector3(-0.5f, 0, 0);
             canPlayLeg = false;
