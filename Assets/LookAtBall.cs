@@ -20,6 +20,7 @@ public class LookAtBall : MonoBehaviour
         initialPos = new Vector3(0.19f, 2.3f, -10.47f);
         
         anim = GetComponent<Animator>();
+        Invoke("PlayCameraAnimation", 8.4f);
     }
 
     // Update is called once per frame
@@ -65,5 +66,8 @@ public class LookAtBall : MonoBehaviour
    
     //public Vector3 offset;
 
-    
+    void PlayCameraAnimation()
+    {
+        anim.Play("StartCamera");
+    }
 }

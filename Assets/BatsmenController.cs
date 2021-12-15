@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MilkShake;
+using TMPro;
+
+
 public class BatsmenController : MonoBehaviour
 {
     //Inspector field for the Shaker component.
@@ -15,6 +18,8 @@ public class BatsmenController : MonoBehaviour
     public AudioClip thatsHuge;
     public AudioClip ballHitClip;
 
+    bool displayDistance=false;
+    TextMeshPro ballDistance;
     //public BallHitWindow ballHitWindow;
     Animator anim;
     private Animator bowlingAnimator;
@@ -55,8 +60,9 @@ public class BatsmenController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    //  Debug.Log(BallHitWindow.canHit);
-
+        //  Debug.Log(BallHitWindow.canHit);
+        if(displayDistance == true)
+        ballDistance.text = (Vector3.Distance(bowlController.newBall.transform.position, transform.position)).ToString("0") + "m";
     }
 
     //batsmen shot animations called from the button clicks
@@ -249,14 +255,17 @@ public class BatsmenController : MonoBehaviour
 
     IEnumerator LookBall()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         look.FollowBall();
-       // Invoke("BackPitch", 3f);
+        ballDistance = bowlController.newBall.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
+        bowlController.newBall.transform.GetChild(0).gameObject.SetActive(true);
+        displayDistance = true;
+        Invoke("BackPitch", 1.5f);
 
     }
 
-    //void BackPitch()
-    //{
-    //    look.BackToPitch();
-    //}
+    void BackPitch()
+    {
+        displayDistance = false;
+    }
 }

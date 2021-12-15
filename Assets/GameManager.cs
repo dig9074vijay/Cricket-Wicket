@@ -110,5 +110,5 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         textCountdown.gameObject.SetActive(false);
     }
-
+    //COROUTINE 
 }

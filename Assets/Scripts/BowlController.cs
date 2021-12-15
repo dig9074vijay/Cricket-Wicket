@@ -65,7 +65,7 @@ public class BowlController : MonoBehaviour
     {
         if(noOfBalls > 12)
         {
-            Debug.Log("Inside if GameOVER");
+           // Debug.Log("Inside if GameOVER");
             FinalScore.text = "Your Score: " + score.ToString();
            
 
