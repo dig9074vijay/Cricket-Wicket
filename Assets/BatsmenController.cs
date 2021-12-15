@@ -8,9 +8,7 @@ using TMPro;
 public class BatsmenController : MonoBehaviour
 {
     //Inspector field for the Shaker component.
-    public Shaker MyShaker;
-    //Inspector field for a Shake Preset to use as the shake parameters.
-    public ShakePreset ShakePreset;
+ //
     public GameObject bat;
     public GameObject EntryWindow;
     public GameObject ExitWindow;
@@ -27,17 +25,20 @@ public class BatsmenController : MonoBehaviour
     public string[] offShots = new string[]{"SquareCut","LateCut","Cover"};
     public string[] legShots = new string[]{ "Hook", "Sweep", "StDrive" };
     int index = 0;
-    public CameraShaker cameraShaker;
+  //  public CameraShaker cameraShaker;
     public int[] scores = new int[] { 1, 2, 3, 4, 6 };
     public GameObject Boom;
 
-    public Camera mainCamera;
-    public GameObject Bowler;
-    public GameObject BoundaryTimeline;
-    public Camera boundaryCamera;
-    //public GameObject boundaryBall;
+   // public Camera mainCamera;
+  // public GameObject Bowler;
+   
+   
 
     public LookAtBall look;
+
+    Vector3 offForce = new Vector3(20f, 10f, 12f);
+    Vector3 legForce = new Vector3(-10f, 10f, 12f);
+
 
     public GameObject Six;
     public GameObject Four;
@@ -128,18 +129,22 @@ public class BatsmenController : MonoBehaviour
         StartCoroutine(HitWithBoom());
         audioSource.clip = ballHitClip;
         audioSource.Play();
-        bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(-10f, 10f, 12f), ForceMode.Impulse);
-        if(HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
+        if (HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
         {
             runIndex = Random.Range(3, 5);
-
+            if (runIndex == 3)
+                legForce = new Vector3(-8f, 5f, 12f);
+            else
+                legForce = new Vector3(-10f,10f,12f);
         }
         else
         {
-            runIndex = Random.Range(0,3);
+            runIndex = Random.Range(0, 3);
 
-
+            legForce = new Vector3(-3f,4f,10f);
         }
+        bowlController.newBall.GetComponent<Rigidbody>().AddForce(legForce, ForceMode.Impulse);
+        
         bowlController.score += scores[runIndex];
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
        
@@ -166,19 +171,22 @@ public class BatsmenController : MonoBehaviour
         audioSource.clip = ballHitClip;
 
         audioSource.Play();
-
-        bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(20f, 10f, 12f), ForceMode.Impulse);
         if (HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
         {
             runIndex = Random.Range(3, 5);
-
+            if (runIndex == 3) { offForce = new Vector3(10f, 5f, 10f); }
+            else
+                offForce = new Vector3(20f,10f,9f);
         }
         else
         {
             runIndex = Random.Range(0, 3);
+            offForce = new Vector3(8f, 3f, 9f);
 
 
         }
+        bowlController.newBall.GetComponent<Rigidbody>().AddForce(offForce, ForceMode.Impulse);
+       
         bowlController.score += scores[runIndex];
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
         if (scores[runIndex] == 6)
@@ -216,11 +224,11 @@ public class BatsmenController : MonoBehaviour
 
     IEnumerator BoundaryDisplay(GameObject gO) {
         gO.SetActive(true);
-        if (gO != Miss)
-        {
-            audioSource.clip = thatsHuge;
-            audioSource.Play();
-        }
+        //if (gO != Miss)
+        //{
+        //    audioSource.clip = thatsHuge;
+        //    audioSource.Play();
+        //}
         yield return new WaitForSeconds(1.5f);
         gO.SetActive(false);
       //  LookBall();
@@ -237,21 +245,7 @@ public class BatsmenController : MonoBehaviour
     }
 
 
-    //void BoundaryTimelineDisplay()
-    //{
-    //    Bowler.SetActive(false);
-    //    mainCamera.enabled = false;
-    //    BoundaryTimeline.SetActive(true);
-    //    Invoke("BackToPitch", 3f);
-    //}
-
-    //void BackToPitch()
-    //{
-    //    Bowler.SetActive(true);
-    //    mainCamera.enabled = true;
-    //    boundaryCamera.enabled = false;
-    //    BoundaryTimeline.SetActive(false);
-    //}
+    
 
     IEnumerator LookBall()
     {
