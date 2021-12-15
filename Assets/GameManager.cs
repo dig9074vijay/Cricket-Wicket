@@ -17,8 +17,10 @@ public class GameManager : MonoBehaviour
     public Canvas HowToPlay;
     public GameObject LCD;
     public GameObject Bowler;
+  //  public GameObject Batsmen;
+
     public Camera mainCamera;
-    public Camera batsmenCamera;
+  //  public Camera batsmenCamera;
     public Camera stadiumCamera;
     // Start is called before the first frame update
     void Start()
@@ -61,7 +63,7 @@ public class GameManager : MonoBehaviour
         isGamePaused = false;
         HowToPlay.gameObject.SetActive(false);
 
-        Invoke("StartGameAfterTimeline", 9.45f);
+        Invoke("StartGameAfterTimeline", 8.4f);
     }
     
 
@@ -69,10 +71,11 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(StartCount());
         Bowler.SetActive(true);
+        //Batsmen.SetActive(true);
         mainCamera.enabled = true;
         stadiumCamera.enabled = false;
 
-        batsmenCamera.enabled = false;
+      //  batsmenCamera.enabled = false;
 
         LCD.gameObject.SetActive(true);
 

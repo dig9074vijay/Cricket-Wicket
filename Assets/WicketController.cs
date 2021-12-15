@@ -30,7 +30,7 @@ public class WicketController : MonoBehaviour
             isBowled = true;
             bowlController.score -= 2;
             bowlController.Score.text = "Score: " + bowlController.score.ToString();
-
+            bowlController.GetComponent<Animator>().Play("Celebration_11");
             bowlController.destroyBall();
             audioSource.Play();
             StartCoroutine(PlaceWickets());

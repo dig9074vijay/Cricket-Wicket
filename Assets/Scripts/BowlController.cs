@@ -16,7 +16,7 @@ public class BowlController : MonoBehaviour
     public float throwingSpeed = 5f;
     public Vector3 throwingDirection = new Vector3(0,-10,-30);
     public Vector3 spinDirection = new Vector3(0, 0, 0);
-    public float spinIntensity = 5f;
+    public float spinIntensity = 3f;
 
     public Text Over;
     public Text Score;
@@ -71,7 +71,7 @@ public class BowlController : MonoBehaviour
 
             gameManager.GetComponent<GameManager>().gameOver();
         }
-        if (newBall.transform.position.z < -18f)
+        if (newBall.transform.position.z < -50f)
         {
             destroyBall();
         }

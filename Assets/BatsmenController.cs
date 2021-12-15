@@ -11,7 +11,11 @@ public class BatsmenController : MonoBehaviour
     public GameObject bat;
     public GameObject EntryWindow;
     public GameObject ExitWindow;
-  //public BallHitWindow ballHitWindow;
+    AudioSource audioSource;
+    public AudioClip thatsHuge;
+    public AudioClip ballHitClip;
+
+    //public BallHitWindow ballHitWindow;
     Animator anim;
     private Animator bowlingAnimator;
     public BowlController bowlController;
@@ -21,6 +25,14 @@ public class BatsmenController : MonoBehaviour
     public CameraShaker cameraShaker;
     public int[] scores = new int[] { 1, 2, 3, 4, 6 };
     public GameObject Boom;
+
+    public Camera mainCamera;
+    public GameObject Bowler;
+    public GameObject BoundaryTimeline;
+    public Camera boundaryCamera;
+    //public GameObject boundaryBall;
+
+    public LookAtBall look;
 
     public GameObject Six;
     public GameObject Four;
@@ -36,6 +48,8 @@ public class BatsmenController : MonoBehaviour
         anim = GetComponent<Animator>();
         bowlingAnimator = bowlController.GetComponent<Animator>();
         HitTimePosition = HitTime.GetComponent<RectTransform>();
+        audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -106,6 +120,8 @@ public class BatsmenController : MonoBehaviour
     public void LegShot()
     {
         StartCoroutine(HitWithBoom());
+        audioSource.clip = ballHitClip;
+        audioSource.Play();
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(-10f, 10f, 12f), ForceMode.Impulse);
         if(HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
         {
@@ -120,6 +136,7 @@ public class BatsmenController : MonoBehaviour
         }
         bowlController.score += scores[runIndex];
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
+       
         if (scores[runIndex] == 6)
         {
             StartCoroutine(BoundaryDisplay(Six));
@@ -132,12 +149,17 @@ public class BatsmenController : MonoBehaviour
         }
       
         Debug.Log("Shot!!!");
+        StartCoroutine("LookBall");
+
         BallHitWindow.canHit = false;
     }
 
     public void OffShot()
     {
         StartCoroutine(HitWithBoom());
+        audioSource.clip = ballHitClip;
+
+        audioSource.Play();
 
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(new Vector3(20f, 10f, 12f), ForceMode.Impulse);
         if (HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
@@ -163,7 +185,10 @@ public class BatsmenController : MonoBehaviour
         {
             StartCoroutine(BoundaryDisplay(Four));
         }
+       
         Debug.Log("Shot!!!");
+        StartCoroutine("LookBall");
+
         BallHitWindow.canHit = false;
 
     }
@@ -172,16 +197,31 @@ public class BatsmenController : MonoBehaviour
     {
         bowlController.newBall.transform.parent = bat.transform;
         Boom.SetActive(true);
+        bowlController.newBall.GetComponent<TrailRenderer>().enabled = false;
         yield return new WaitForSeconds(0.2f);
         bowlController.newBall.transform.parent = transform.root;
         Boom.SetActive(false);
         Debug.Log("HitWithBoom");
+      //  yield return new WaitForSeconds(0.5f);
+        bowlController.newBall.GetComponent<TrailRenderer>().enabled = true;
+
+
     }
 
     IEnumerator BoundaryDisplay(GameObject gO) {
         gO.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        if (gO != Miss)
+        {
+            audioSource.clip = thatsHuge;
+            audioSource.Play();
+        }
+        yield return new WaitForSeconds(1.5f);
         gO.SetActive(false);
+      //  LookBall();
+
+        //if (gO == Four) {
+        //LookBall();
+        //}
     }
 
     public static float Remap(float input, float oldLow, float oldHigh, float newLow, float newHigh)
@@ -190,4 +230,33 @@ public class BatsmenController : MonoBehaviour
         return Mathf.Lerp(newLow, newHigh, t);
     }
 
+
+    //void BoundaryTimelineDisplay()
+    //{
+    //    Bowler.SetActive(false);
+    //    mainCamera.enabled = false;
+    //    BoundaryTimeline.SetActive(true);
+    //    Invoke("BackToPitch", 3f);
+    //}
+
+    //void BackToPitch()
+    //{
+    //    Bowler.SetActive(true);
+    //    mainCamera.enabled = true;
+    //    boundaryCamera.enabled = false;
+    //    BoundaryTimeline.SetActive(false);
+    //}
+
+    IEnumerator LookBall()
+    {
+        yield return new WaitForSeconds(1.5f);
+        look.FollowBall();
+       // Invoke("BackPitch", 3f);
+
+    }
+
+    //void BackPitch()
+    //{
+    //    look.BackToPitch();
+    //}
 }

@@ -6,15 +6,15 @@ public class UVAnimation : MonoBehaviour
 {
     public Vector2 textureMatrix = Vector2.zero;
     public float timeBetweenFrames = 0.1f;
-    public float minStartDelay = 0.5f;
-    public float maxStartDelay = 0.5f;
+    public float minStartDelay = 0.45f;
+    public float maxStartDelay = 0.55f;
     public bool animate = false;
     public float minAnimTime = 5.0f;
     public float maxAnimTime = 10f;
 
     private float _xOffset = 0f;
     private float _yOffset = 0f;
-    private float _timer = 0f;
+  //  private float _timer = 0f;
     private Renderer _renderer = null;
 	public bool animateCrowd;
 
