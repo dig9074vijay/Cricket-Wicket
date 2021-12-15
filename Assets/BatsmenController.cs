@@ -16,6 +16,9 @@ public class BatsmenController : MonoBehaviour
     public AudioClip thatsHuge;
     public AudioClip ballHitClip;
 
+    public GameObject Umpire;
+   public Animator umpireAnim;
+
     bool displayDistance=false;
     TextMeshPro ballDistance;
     //public BallHitWindow ballHitWindow;
@@ -55,7 +58,7 @@ public class BatsmenController : MonoBehaviour
         bowlingAnimator = bowlController.GetComponent<Animator>();
         HitTimePosition = HitTime.GetComponent<RectTransform>();
         audioSource = GetComponent<AudioSource>();
-
+        umpireAnim = Umpire.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -76,7 +79,15 @@ public class BatsmenController : MonoBehaviour
             {
                 index = Random.Range(0, 3);
                 anim.SetTrigger(legShots[index]);
-                LegShot();
+                 LegShot();
+
+
+
+                /*Here this lrgshot function is being called by animation*/
+
+
+
+
                 Debug.Log("Play Leg");
                 // MyShaker.Shake(ShakePreset);
                 //    StartCoroutine(cameraShaker.Shake(0.15f,0.35f));
@@ -104,6 +115,14 @@ public class BatsmenController : MonoBehaviour
                 index = Random.Range(0, 3);
                 anim.SetTrigger(offShots[index]);
                 OffShot();
+
+                /*Here this offshot function is being called by animation*/
+
+
+
+
+
+
                 // MyShaker.Shake(ShakePreset);
                 // StartCoroutine(cameraShaker.Shake(0.15f,0.35f));
             }
@@ -133,15 +152,23 @@ public class BatsmenController : MonoBehaviour
         {
             runIndex = Random.Range(3, 5);
             if (runIndex == 3)
-                legForce = new Vector3(-8f, 5f, 12f);
+            {
+                legForce = new Vector3(-8f, 5f, 18f);
+                umpireAnim.Play("Four");
+            }
+
             else
-                legForce = new Vector3(-10f,10f,12f);
+            {
+                legForce = new Vector3(-10f, 10f, 18f);
+                umpireAnim.Play("Six");
+
+            }
         }
         else
         {
             runIndex = Random.Range(0, 3);
 
-            legForce = new Vector3(-3f,4f,10f);
+            legForce = new Vector3(-3f,4f,15f);
         }
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(legForce, ForceMode.Impulse);
         
@@ -174,14 +201,22 @@ public class BatsmenController : MonoBehaviour
         if (HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
         {
             runIndex = Random.Range(3, 5);
-            if (runIndex == 3) { offForce = new Vector3(10f, 5f, 10f); }
+            if (runIndex == 3)
+            {
+                offForce = new Vector3(10f, 5f, 15f);
+                umpireAnim.Play("Four");
+            }
             else
-                offForce = new Vector3(20f,10f,9f);
+            {
+                offForce = new Vector3(20f, 10f, 15f);
+                umpireAnim.Play("Six");
+
+            }
         }
         else
         {
             runIndex = Random.Range(0, 3);
-            offForce = new Vector3(8f, 3f, 9f);
+            offForce = new Vector3(8f, 3f, 13f);
 
 
         }

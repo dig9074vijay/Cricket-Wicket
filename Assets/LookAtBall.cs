@@ -18,7 +18,7 @@ public class LookAtBall : MonoBehaviour
     void Start()
     {
         initialPos = new Vector3(0.19f, 2.3f, -10.47f);
-        
+        initialRot = new Quaternion(0.07063f, 0.00017f, -0.00244f, 0.99750f);
         anim = GetComponent<Animator>();
         Invoke("PlayCameraAnimation", 8.4f);
     }
@@ -30,6 +30,7 @@ public class LookAtBall : MonoBehaviour
         //{
         //    transform.position = target.position - offset;
         //}
+        //Debug.Log(transform.rotation);
     }
 
     void FixedUpdate()
@@ -48,7 +49,7 @@ public class LookAtBall : MonoBehaviour
     {
         target = bowlController.newBall.GetComponent<Transform>();
         anim.enabled = false;
-        initialRot = transform.rotation;
+      //  initialRot = transform.rotation;
         look = true;
         Invoke("BackToPitch", 3f);
     }
