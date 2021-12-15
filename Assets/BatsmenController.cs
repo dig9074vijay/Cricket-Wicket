@@ -251,7 +251,7 @@ public class BatsmenController : MonoBehaviour
         bowlController.newBall.transform.parent = transform.root;
         Boom.SetActive(false);
         Debug.Log("HitWithBoom");
-      //  yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);
         bowlController.newBall.GetComponent<TrailRenderer>().enabled = true;
 
 
