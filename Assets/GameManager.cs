@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     public Canvas HowToPlay;
     public GameObject LCD;
     public GameObject Bowler;
-  //  public GameObject Batsmen;
+    public GameObject Batsmen;
 
     public Camera mainCamera;
   //  public Camera batsmenCamera;
@@ -84,9 +84,9 @@ public class GameManager : MonoBehaviour
         //Batsmen.SetActive(true);
         mainCamera.enabled = true;
         stadiumCamera.enabled = false;
-
-      //  batsmenCamera.enabled = false;
-
+        mainCamera.gameObject.GetComponent<Animator>().Play("StartCamera");
+        //  batsmenCamera.enabled = false;
+        Batsmen.GetComponent<Animator>().Play("BatsManIdle_01");
         LCD.gameObject.SetActive(true);
 
         GameCanvas.gameObject.SetActive(true);
