@@ -1374,7 +1374,8 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: b290bac06a2924269b1e3574a4932b38, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 95375883933540650, guid: 74ba3879a8b7e4443928cfffc373a7a9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 74ba3879a8b7e4443928cfffc373a7a9, type: 3}
 --- !u!1 &278115271
 GameObject:
@@ -1513,36 +1514,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &416619912 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1465746199770606, guid: 74ba3879a8b7e4443928cfffc373a7a9, type: 3}
-  m_PrefabInstance: {fileID: 127367977}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &416619915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 416619912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccb2c7e77cda24a8eaf85b5207cc8801, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ball: {fileID: 7188490474077407883, guid: a930a077d3bae47c1b0b0ed702eb5740, type: 3}
-  noOfBalls: 0
-  TipSpot: {fileID: 0}
-  throwingSpeed: 1.5
-  throwingDirection: {x: 0, y: -10, z: -30}
-  Over: {fileID: 0}
-  ballTypes:
-  - ARM BALL
-  - FAST
-  - LEG SPIN
-  - OFF SPIN
-  gameManager: {fileID: 2027283621}
-  error: {x: 0, y: -1.25, z: 0}
 --- !u!1001 &424721362
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1800,8 +1771,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5413b3671d08b43f784f3e266a3aec45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bowlController: {fileID: 416619915}
+  bowlController: {fileID: 0}
   audioSource: {fileID: 0}
+  isBowled: 0
+  outDisplay: {fileID: 0}
+  batsmenController: {fileID: 0}
 --- !u!82 &532873444
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2074,8 +2048,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0.08482003, y: 0.81034833, z: -0.12122892, w: -0.56696093}
-  m_LocalPosition: {x: 87.58447, y: 2.527641, z: 35.883423}
+  m_LocalRotation: {x: 0.11405459, y: 0.010432482, z: -0.0011710953, w: 0.99341905}
+  m_LocalPosition: {x: 0.21267797, y: 2.5501845, z: -11.494056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3251,7 +3225,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1851073631
@@ -3298,9 +3272,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c29d3150f9ea49a1923b312f05db576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isStart: 0
   count: 3
   textCountdown: {fileID: 0}
   GameOver: {fileID: 0}
+  GameCanvas: {fileID: 0}
+  HowToPlay: {fileID: 0}
+  LCD: {fileID: 0}
+  Bowler: {fileID: 0}
+  mainCamera: {fileID: 0}
+  stadiumCamera: {fileID: 0}
 --- !u!4 &2027283623
 Transform:
   m_ObjectHideFlags: 0
@@ -3333,19 +3314,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 79.17
+      value: -0.51
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0013068914
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 32.6
+      value: -7.88
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.53065914
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3353,7 +3334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8475854
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalRotation.z
@@ -3365,7 +3346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -115.9
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4641182663406436, guid: d9bb9649388b468469aa280896961b18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
