@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.6844013, g: 0.7756531, b: 0.8522211, a: 1}
+  m_IndirectSpecularColor: {r: 0.6501885, g: 0.73693645, b: 0.80974215, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2801,6 +2801,7 @@ MonoBehaviour:
   newBall: {fileID: 0}
   score: 0
   wicketController: {fileID: 532873441}
+  noOfBalls: 0
   TipSpot: {fileID: 1278726064}
   throwingSpeed: 1.4
   throwingDirection: {x: 0, y: -10, z: -30}
@@ -2808,7 +2809,6 @@ MonoBehaviour:
   spinIntensity: 3
   Over: {fileID: 1516473829}
   Score: {fileID: 1757347606}
-  FinalScore: {fileID: 1373003423}
   ballTypes:
   - ARM BALL
   - FAST
@@ -4136,6 +4136,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709433772}
   m_CullTransparentMesh: 1
+--- !u!114 &720330649 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6869414195680739497, guid: 8cae3d1992a7149f59043da2d9e0f2cf, type: 3}
+  m_PrefabInstance: {fileID: 4851946099712963107}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &746202834
 GameObject:
   m_ObjectHideFlags: 0
@@ -8592,8 +8603,11 @@ MonoBehaviour:
   GameCanvas: {fileID: 1324606719}
   HowToPlay: {fileID: 825034107}
   LCD: {fileID: 1033572590}
-  Bowler: {fileID: 416619912}
+  Bowler: {fileID: 416619915}
   Batsmen: {fileID: 1366354026}
+  FinalScore: {fileID: 1373003423}
+  FinalScoreInTable: {fileID: 720330649}
+  OtherPlayerFinalScore: {fileID: 0}
   mainCamera: {fileID: 963194227}
   stadiumCamera: {fileID: 1774721094}
 --- !u!4 &2027283623
@@ -8801,7 +8815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6869414195872576315, guid: 8cae3d1992a7149f59043da2d9e0f2cf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6869414195872576319, guid: 8cae3d1992a7149f59043da2d9e0f2cf, type: 3}
       propertyPath: m_Pivot.x

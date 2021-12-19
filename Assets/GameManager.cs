@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -16,9 +17,14 @@ public class GameManager : MonoBehaviour
     public Canvas GameCanvas;
     public Canvas HowToPlay;
     public GameObject LCD;
-    public GameObject Bowler;
+    public BowlController Bowler;
     public GameObject Batsmen;
 
+
+    public TextMeshProUGUI FinalScore;
+    public TextMeshProUGUI FinalScoreInTable;
+
+  //  public TextMeshProUGUI OtherPlayerFinalScore;
     public Camera mainCamera;
   //  public Camera batsmenCamera;
     public Camera stadiumCamera;
@@ -34,7 +40,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-  
+
+        if (Bowler.noOfBalls > 12)
+        {
+            // Debug.Log("Inside if GameOVER");
+            string score = Bowler.score.ToString();
+            FinalScore.text = score;
+            FinalScoreInTable.text = score;
+
+            gameOver();
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             isGamePaused = !isGamePaused;
@@ -81,7 +97,7 @@ public class GameManager : MonoBehaviour
     void StartGameAfterTimeline()
     {
         StartCoroutine(StartCount());
-        Bowler.SetActive(true);
+        Bowler.gameObject.SetActive(true);
         //Batsmen.SetActive(true);
         mainCamera.enabled = true;
         stadiumCamera.enabled = false;

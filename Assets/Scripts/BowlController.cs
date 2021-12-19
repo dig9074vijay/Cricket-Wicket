@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
+
 
 
 public class BowlController : MonoBehaviour
@@ -12,7 +12,7 @@ public class BowlController : MonoBehaviour
     public GameObject newBall; //Instantiated GameObject
     public int score = 0;
     public WicketController wicketController;
-    int noOfBalls = 0;
+    public int noOfBalls = 0;
     int ballTypeIndex = 0;
     public Transform TipSpot; 
     public float throwingSpeed = 5f;
@@ -22,7 +22,6 @@ public class BowlController : MonoBehaviour
 
     public Text Over;
     public Text Score;
-    public TextMeshProUGUI FinalScore;
     Animator bowlingAnimator;
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     public GameObject gameManager;
@@ -65,14 +64,6 @@ public class BowlController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(noOfBalls > 12)
-        {
-           // Debug.Log("Inside if GameOVER");
-            FinalScore.text = "Your Score: " + score.ToString();
-           
-
-            gameManager.GetComponent<GameManager>().gameOver();
-        }
         if (newBall.transform.position.z < -50f)
         {
             destroyBall();
