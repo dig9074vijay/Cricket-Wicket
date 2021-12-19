@@ -20,6 +20,7 @@ public class BallHitWindow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.gameObject.name);
         if(other.gameObject.name == "EntryWindow")
         {
             canHit = true;

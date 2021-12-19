@@ -20,7 +20,7 @@ public class LookAtBall : MonoBehaviour
         initialPos = new Vector3(0.19f, 2.3f, -10.47f);
         initialRot = new Quaternion(0.07063f, 0.00017f, -0.00244f, 0.99750f);
         anim = GetComponent<Animator>();
-        Invoke("PlayCameraAnimation", 8.4f);
+       // Invoke("PlayCameraAnimation", 8.4f);
     }
 
     // Update is called once per frame

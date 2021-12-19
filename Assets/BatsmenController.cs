@@ -244,33 +244,34 @@ public class BatsmenController : MonoBehaviour
 
     IEnumerator HitWithBoom()
     {
+        
         bowlController.newBall.transform.parent = bat.transform;
         Boom.SetActive(true);
         bowlController.newBall.GetComponent<TrailRenderer>().enabled = false;
         yield return new WaitForSeconds(0.2f);
+        // anim.Play("BattingIdle_01 0");
+    
         bowlController.newBall.transform.parent = transform.root;
         Boom.SetActive(false);
         Debug.Log("HitWithBoom");
         yield return new WaitForSeconds(0.5f);
+        //  anim.StartPlayback("BattingIdle_01 0");
+        anim.enabled = false;
         bowlController.newBall.GetComponent<TrailRenderer>().enabled = true;
 
+        yield return new WaitForSeconds(1.5f);
+        anim.enabled = true;
+
+        anim.Play("BattingIdle_01 0");
 
     }
 
     IEnumerator BoundaryDisplay(GameObject gO) {
         gO.SetActive(true);
-        //if (gO != Miss)
-        //{
-        //    audioSource.clip = thatsHuge;
-        //    audioSource.Play();
-        //}
+       
         yield return new WaitForSeconds(1.5f);
         gO.SetActive(false);
-      //  LookBall();
-
-        //if (gO == Four) {
-        //LookBall();
-        //}
+      
     }
 
     public static float Remap(float input, float oldLow, float oldHigh, float newLow, float newHigh)
@@ -284,7 +285,7 @@ public class BatsmenController : MonoBehaviour
 
     IEnumerator LookBall()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
         look.FollowBall();
         ballDistance = bowlController.newBall.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
         bowlController.newBall.transform.GetChild(0).gameObject.SetActive(true);

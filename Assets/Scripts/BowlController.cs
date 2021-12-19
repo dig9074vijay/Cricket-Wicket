@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 
 public class BowlController : MonoBehaviour
 {
@@ -20,7 +22,7 @@ public class BowlController : MonoBehaviour
 
     public Text Over;
     public Text Score;
-    public Text FinalScore;
+    public TextMeshProUGUI FinalScore;
     Animator bowlingAnimator;
     public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     public GameObject gameManager;

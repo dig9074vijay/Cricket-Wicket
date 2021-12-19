@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
     public void gameOver()
     {
         GameOver.gameObject.SetActive(true);
+        LCD.gameObject.SetActive(false);
 
         isGamePaused = true;
         Debug.Log("GameOver");
