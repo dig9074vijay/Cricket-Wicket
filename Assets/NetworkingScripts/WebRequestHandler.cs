@@ -49,7 +49,7 @@ public class WebRequestHandler : MonoBehaviour
 
         private IEnumerator PostRequest(string url, string json, Action<string, bool> OnRequestProcessed)
         {
-            Debug.Log("Akash Url:  " + url + " json request: " + json);
+            Debug.Log("Digvijay Url:  " + url + " json request: " + json);
             var request = new UnityWebRequest(url, "POST");
             byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(json);
             request.uploadHandler = new UploadHandlerRaw(jsonToSend);

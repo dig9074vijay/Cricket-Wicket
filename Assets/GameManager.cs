@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public GameObject LCD;
     public BowlController Bowler;
     public GameObject Batsmen;
-
+    public bool isGameOver = false;
 
     public TextMeshProUGUI FinalScore;
     public TextMeshProUGUI FinalScoreInTable;
@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
     {
         GameOver.gameObject.SetActive(true);
         LCD.gameObject.SetActive(false);
-
+        isGameOver = true;
         isGamePaused = true;
         Debug.Log("GameOver");
     }

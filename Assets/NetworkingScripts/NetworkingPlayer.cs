@@ -5,12 +5,15 @@ using System.Collections.Generic;
 public class NetworkingPlayer 
 {
     public string playerName;
+    public string playerId;
     public string imageURL;
     public string RoomID;
     public int score;
     public bool isGameStarted;
     public bool finishedPlaying;
     public bool iWon = false;
+    public int playerDisconnectionCounter = 3;
+    public bool isConnected = false;
 }
 
 

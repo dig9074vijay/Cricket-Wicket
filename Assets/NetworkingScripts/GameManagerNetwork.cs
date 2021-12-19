@@ -4,38 +4,75 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
-
-public class GameManager1 : MonoBehaviour
+public class GameManagerNetwork : MonoBehaviour
 {
-    
+    //[SerializeField] List<GameObject> easyLogs;
+    //[SerializeField] List<GameObject> hardLogs;
+    //[SerializeField] List<GameObject> bossLogs;
+    //[SerializeField] GameObject knifePrefab;
+    //[SerializeField] ParticleSystem breakEffect;
+    //[SerializeField] GameObject pointsPrefab;
+    //[SerializeField] Transform canvas;
+   // public Transform knifeHolder;
+    //GameObject knife;
+    //List<GameObject> currentEasyLogs, currentHardLogs, currentBossLogs;
+    ////GameObject currentHinge;
+    //GameObject currentLog;
+    //public GameObject TouchBlocker;
+    //public GameObject TouchBlockerWhenLogIsDestroyed;
+    //Vector3 spawnPosition;
+    //Vector3 daggerSpawnPosition;
+    //public Text inGameTimer;
+    //int inGameTime;
+    //[SerializeField] Image endGameTimer;
+    //int endGameTime = 3;
+    //GameObject Flash;
+    //GameObject current;
+    //int id;
+    //int points = 5;
+
+
+    [SerializeField] GameObject Timeline;
+    [SerializeField] GameObject HowToPlayCanvas;
+    [SerializeField] GameObject Matchmaking;
+    [SerializeField] GameObject TableRow2;
+
+
+
+
+
     [SerializeField] Text scoreTextHolder;
-    [SerializeField]Text OppenentScoreTextHolder;
-    [SerializeField] Text WinnerNameText;
-    [SerializeField] Text LosserNameText;
-    [SerializeField] Text thisText;
-    [SerializeField] Text otherText;
-    [SerializeField] Text displayScoreTextAtEnd;
-    [SerializeField] Text displayWinnerOrLosserText;
- //  int levelCounter = 1;
-   // string currentTag;
- //   public GameObject knifeImage;
+    [SerializeField] Text OpponentScoreTextHolder;
+    [SerializeField] TextMeshProUGUI WinnerNameText;
+    [SerializeField] TextMeshProUGUI scoreOnScoreBoard;
+    [SerializeField] TextMeshProUGUI opponentScoreOnScoreBoard;
+    [SerializeField] TextMeshProUGUI LosserNameText;
+    [SerializeField] TextMeshProUGUI thisText;
+    [SerializeField] TextMeshProUGUI otherText;
+    [SerializeField] TextMeshProUGUI displayScoreTextAtEnd;
+    [SerializeField] TextMeshProUGUI displayWinnerOrLosserText;
+    //int levelCounter = 1;
+    //string currentTag;
+   // public GameObject knifeImage;
     int score;
-//    [SerializeField]Text StageText;
+    [SerializeField]Text StageText;
     public bool isGameOver;
     [SerializeField] GameObject findingPlayerScreen;
     [SerializeField] GameObject StartGameOverScreen;
-    
+    [SerializeField] GameManager gameManager;
     //Networking Variables
 
     NetworkingPlayer otherPlayer;
+    //public string serverURL = "http://localhost:3000/";
+    public string serverURL = "https://gamejoyproserver1v1.herokuapp.com/";
     public NetworkingPlayer thisPlayer;
     public bool foundOtherPlayer = false;
     public bool canStartGame;
     public bool foundWinner;
-
     string myRoomId;
-    public static GameManager1 instance;
+    public static GameManagerNetwork instance;
     private void Awake()
     {
         instance = this;
@@ -51,12 +88,14 @@ public class GameManager1 : MonoBehaviour
         try
         {
             string mydata = JsonUtility.ToJson(thisPlayer);
-            WebRequestHandler.Instance.Post("http://localhost:3000/startRoom", mydata, (response, status) => {
+            WebRequestHandler.Instance.Post(serverURL + "startRoom", mydata, (response, status) => {
 
                 NetworkingPlayer player = JsonUtility.FromJson<NetworkingPlayer>(response);
                 thisPlayer.RoomID = player.RoomID;
+                thisPlayer.playerId = player.playerId;
+                thisPlayer.playerName = player.playerName;
                 myRoomId = player.RoomID;
-                Debug.Log("My Room is " + myRoomId);
+                Debug.Log("My Room is " + thisPlayer.RoomID);
             });
         }
         catch {
@@ -66,7 +105,7 @@ public class GameManager1 : MonoBehaviour
 
         if (isConnected == false) yield break;
 
-        thisPlayer.score = score;
+        thisPlayer.score = gameManager.Bowler.score;
         thisText.text = thisPlayer.playerName;
 
 
@@ -75,12 +114,12 @@ public class GameManager1 : MonoBehaviour
         while(foundOtherPlayer == false)
         {
             yield return new WaitForSecondsRealtime(0.5f);
-
-            WebRequestHandler.Instance.Get("http://localhost:3000/fetchOtherPlayerData/"+myRoomId+"/"+thisPlayer.playerName, (response, status) => {
+            scoreTextHolder.text = gameManager.Bowler.score.ToString();
+            WebRequestHandler.Instance.Get(serverURL + "fetchOtherPlayerData/" +myRoomId+"/"+thisPlayer.playerId, (response, status) => {
 
                 otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
                 Debug.Log(response);
-                if (otherPlayer.playerName != null && otherPlayer.playerName != "")
+                if (otherPlayer.playerId != null && otherPlayer.playerId != "")
                 {
                     foundOtherPlayer = true;
                     otherText.text=otherPlayer.playerName;
@@ -89,40 +128,42 @@ public class GameManager1 : MonoBehaviour
    
             });
         }
+
         yield return new WaitForSecondsRealtime(0.5f);
-        findingPlayerScreen.SetActive(false);
+
+
+
+        HowToPlayCanvas.SetActive(true);
+        Matchmaking.SetActive(false);
+        gameManager.gameObject.SetActive(true);
+        Timeline.SetActive(true);
+
+
+
+
         canStartGame = true;
             
 
 
-        //knifeHolder = GameObject.Find("KnifeHolder").transform;
-        //TouchBlocker = GameObject.Find("TouchBlocker");
-        //Flash = GameObject.Find("Flash");
-        //Flash.SetActive(false);
-        //TouchBlocker.SetActive(false);
-        //TouchBlockerWhenLogIsDestroyed.SetActive(false);
+       
 
 
 
-        //spawnPosition = new Vector3(0, 5.03f, 0);
-        //daggerSpawnPosition = new Vector3(0f, -8.65f, 0);
-        //currentEasyLogs = new List<GameObject>();
-        //currentHardLogs = new List<GameObject>();
-        //currentBossLogs = new List<GameObject>();
+        
 
         //SpawnFirstLog();
         //spawndagger();
-        //StageUIManager.instance.ChangeSprite();
+       // StageUIManager.instance.ChangeSprite();
 
-        while (isGameOver == false)
+        while (gameManager.isGameOver == false)
         {
-            thisPlayer.score = score;
+            thisPlayer.score = gameManager.Bowler.score;
            yield return new WaitForSecondsRealtime(0.5f);
 
-            WebRequestHandler.Instance.Get("http://localhost:3000/fetchscore/" + myRoomId + "/" + thisPlayer.playerName +"/" + thisPlayer.score, (response, status) => {
+            WebRequestHandler.Instance.Get(serverURL + "fetchscore/" + myRoomId + "/" + thisPlayer.playerId +"/"+ otherPlayer.playerId + "/" + thisPlayer.score, (response, status) => {
 
                 otherPlayer.score = Int32.Parse(response);
-                OppenentScoreTextHolder.text = response;
+                OpponentScoreTextHolder.text = response;
                 Debug.Log(response);
                 
                 //otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
@@ -131,43 +172,47 @@ public class GameManager1 : MonoBehaviour
         }
 
         thisPlayer.finishedPlaying = true;
-        StartGameOverScreen.SetActive(true);
+     //   StartGameOverScreen.SetActive(true);
 
         while (foundWinner == false)
         {
             yield return new WaitForSecondsRealtime(0.5f);
-            thisPlayer.score = score;
-            WebRequestHandler.Instance.Get("http://localhost:3000/getWinner/" + myRoomId + "/" + 
-                thisPlayer.playerName + "/" + thisPlayer.score + "/" + thisPlayer.finishedPlaying + "/" +
+            thisPlayer.score = gameManager.Bowler.score;
+            WebRequestHandler.Instance.Get(serverURL + "getWinner/" + myRoomId + "/" + 
+                thisPlayer.playerId + "/" + otherPlayer.playerId + "/" + thisPlayer.score + "/" + thisPlayer.finishedPlaying + "/" +
                 foundWinner,
                 (response, status) => {
 
-                    if(response != "false")
+                    if(response != "false" && foundWinner==false)
                     {
-                        StartGameOverScreen.transform.GetChild(1).gameObject.SetActive(false);
+                        TableRow2.SetActive(false);
                         foundWinner = true;
                         NetworkingPlayer winner = JsonUtility.FromJson<NetworkingPlayer>(response);
-                        if (winner.playerName == thisPlayer.playerName)
+                        if (winner.playerId == thisPlayer.playerId)
                         {
                             thisPlayer.iWon = true;
                             Debug.Log(thisPlayer.playerName + " won with score " + thisPlayer.score);
                             WinnerNameText.text = thisPlayer.playerName;
                             LosserNameText.text = otherPlayer.playerName;
-                            displayWinnerOrLosserText.text = "YOU WON";
-                            displayScoreTextAtEnd.text = score.ToString("SCORE :" + thisPlayer.score);
+                          //  displayWinnerOrLosserText.text = "YOU WON";
+                           // displayScoreTextAtEnd.text = thisPlayer.score.ToString();
+                            scoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
+                            opponentScoreOnScoreBoard.text = otherPlayer.score.ToString();
 
                         } 
-                        else if(winner.playerName == otherPlayer.playerName)
+                        else if(winner.playerId == otherPlayer.playerId)
                         {
                             otherPlayer.iWon = true;
                             otherPlayer = winner;
                             Debug.Log(otherPlayer.playerName + " won with score " + otherPlayer.score);
                             WinnerNameText.text = otherPlayer.playerName;
                             LosserNameText.text = thisPlayer.playerName;
-                            displayWinnerOrLosserText.text = "YOU LOSE";
-                            displayScoreTextAtEnd.text = score.ToString("SCORE :" + thisPlayer.score);
+                          //  displayWinnerOrLosserText.text = "YOU LOSE";
+                         //   displayScoreTextAtEnd.text = thisPlayer.score.ToString();
+                            scoreOnScoreBoard.text = otherPlayer.score.ToString();
+                            opponentScoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
                         }
-
+                       // StartCoroutine(CallLeaveRoom());
                     }
                     else
                     {
@@ -179,6 +224,12 @@ public class GameManager1 : MonoBehaviour
             });
         }
     }
+
+    //IEnumerator CallLeaveRoom()
+    //{
+    //    yield return new WaitForSecondsRealtime(0.5f);
+    //    LeaveRoom();
+    //}
 
     //void SpawnFirstLog()
     //{
@@ -192,7 +243,7 @@ public class GameManager1 : MonoBehaviour
     //    currentLog.transform.localPosition = spawnPosition;
     //    // = currentHinge.transform.GetChild(0).gameObject;
     //    currentLog.transform.SetParent(this.transform);
-    //    currentLog.GetComponent<rotateAuto>().enabled = true;
+    ////    currentLog.GetComponent<rotateAuto>().enabled = true;
     //    currentEasyLogs.RemoveAt(index);
     //}
 
@@ -208,7 +259,7 @@ public class GameManager1 : MonoBehaviour
     //    currentLog.transform.localPosition = spawnPosition;
     //    // = currentHinge.transform.GetChild(0).gameObject;
     //    currentLog.transform.SetParent(this.transform);
-    //    currentLog.GetComponent<rotateAuto>().enabled = true;
+    // //   currentLog.GetComponent<rotateAuto>().enabled = true;
     //    currentEasyLogs.RemoveAt(index);
     //} 
     //public void SpawnHardLogs()
@@ -222,7 +273,7 @@ public class GameManager1 : MonoBehaviour
     //    currentLog = Instantiate(currentHardLogs[index],this.transform);
     //    currentLog.transform.localPosition = spawnPosition;
     //    currentLog.transform.SetParent(this.transform);
-    //    currentLog.GetComponent<rotateAuto>().enabled = true;
+    ////    currentLog.GetComponent<rotateAuto>().enabled = true;
     //    //currentLog.GetComponent<Animator>().Play("Reverse");
     //    currentHardLogs.RemoveAt(index);
     //}
@@ -238,7 +289,7 @@ public class GameManager1 : MonoBehaviour
     //    currentLog.transform.localPosition = spawnPosition;
     //   // currentLog = currentHinge.transform.GetChild(0).gameObject;
     //    currentLog.transform.SetParent(this.transform);
-    //    currentLog.GetComponent<rotateAuto>().enabled = true;
+    //  //  currentLog.GetComponent<rotateAuto>().enabled = true;
     //    currentBossLogs.RemoveAt(index);
     //}
 
@@ -253,7 +304,7 @@ public class GameManager1 : MonoBehaviour
     //{
     //    if (isGameOver == true) return;
 
-    //    knife.GetComponent<ThrowKnife>().KnifeThrow();
+    //  //  knife.GetComponent<ThrowKnife>().KnifeThrow();
     //    KnifeImageUI();
     //    Debug.Log("button");
     //    knife = null;
@@ -302,7 +353,7 @@ public class GameManager1 : MonoBehaviour
     //public void LevelFinishedStartFlash(Color32 ParticleColor)
     //{
     //    Flash.SetActive(true);
-    //    breakEffect.startColor = ParticleColor;
+    ////    breakEffect.startColor = ParticleColor;
     //    breakEffect.Play();
     //}
 
@@ -351,7 +402,7 @@ public class GameManager1 : MonoBehaviour
     //        child.GetComponent<Image>().fillAmount = 1;
     //    }
         
-    //    StageUIManager.instance.ChangeSprite();
+    // //   StageUIManager.instance.ChangeSprite();
     //    Invoke("SetTouchBlockInActive",0.5f);
     //}
 
@@ -361,6 +412,8 @@ public class GameManager1 : MonoBehaviour
     //}
 
     // int index=0;
+    //private bool hasLeftRoom;
+
     //public void KnifeImageUI()
     //{
     //    if (index > knifeImage.transform.childCount - 1) return;
@@ -374,46 +427,76 @@ public class GameManager1 : MonoBehaviour
 
  
 
-    //void DisplayFunc(string pn, Color cl)
-    //{
-    //    GameObject tempPoints = Instantiate(pointsPrefab, canvas);
-    //    tempPoints.GetComponent<PointManager>().DisplayPoints(pn, cl);
+  //  void DisplayFunc(string pn, Color cl)
+  //  {
+  //      GameObject tempPoints = Instantiate(pointsPrefab, canvas);
+  ////      tempPoints.GetComponent<PointManager>().DisplayPoints(pn, cl);
 
-    //}
+  //  }
 
-    //public void LogTookDamage()
-    //{
-    //    DisplayFunc("+" + points.ToString(), Color.white);
-    //    score = score + points;
-    //    Debug.Log("score is" + score);
-    //    scoreTextHolder.text = score.ToString();
-    //}
-    public void CancelApplication()
-    {
-        Application.Quit();
-    }
+  //  public void LogTookDamage()
+  //  {
+  //      DisplayFunc("+" + points.ToString(), Color.white);
+  //      score = score + points;
+  //      Debug.Log("score is" + score);
+  //      scoreTextHolder.text = score.ToString();
+  //  }
+  //  public void CancelApplication()
+  //  {
+  //      //hasLeftRoom = true;
+  //      Application.Quit();
+  //  }
 
-    public void ReloadScene()
-    {
-        Debug.Log("ChangeScene");
-        SceneManager.LoadScene(0);
-    }
+  //  public void ReloadScene()
+  //  {
+  //      Debug.Log("ChangeScene");
+  //      SceneManager.LoadScene(0);
+        
+  //  }
 
-   public void startReloadGameTime()
-    {
+   //public void startReloadGameTime()
+   // {
    //     StartCoroutine(EndGameTimeFill());
-    }
+   // }
 
-    //IEnumerator EndGameTimeFill()
+   // IEnumerator EndGameTimeFill()
+   // {
+   //     while (true)
+   //     {
+   //         endGameTimer.fillAmount += 0.01f;
+   //         yield return new WaitForSecondsRealtime(0.2f);
+   //         if (endGameTimer.fillAmount == 1)
+   //         {
+   //             SceneManager.LoadScene(0);
+                
+   //         }
+   //     }
+   // }
+
+    //private void OnDestroy()
     //{
-    //    while (true)
+    //    if (hasLeftRoom == false)
     //    {
-    //        endGameTimer.fillAmount += 0.01f;
-    //        yield return new WaitForSecondsRealtime(0.2f);
-    //        if (endGameTimer.fillAmount == 1)
-    //        {
-    //            SceneManager.LoadScene(0);
-    //        }
+    //        LeaveRoom();
     //    }
+    //}
+
+    //public void LeaveRoom()
+    //{
+    //    Debug.Log("leaving Room");
+    //    WebRequestHandler.Instance.Get("http://localhost:3000/removeFromRooms/" + myRoomId + "/" + thisPlayer.playerName, (response, status) => {
+    //        thisPlayer.RoomID = "";
+    //        myRoomId = "";
+    //        //otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
+    //        //Debug.Log(response);
+    //        //if (otherPlayer.playerName != null && otherPlayer.playerName != "")
+    //        //{
+    //        //    foundOtherPlayer = true;
+    //        //    otherText.text = otherPlayer.playerName;
+    //        //}
+    //        //otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
+
+    //    });
+
     //}
 }
