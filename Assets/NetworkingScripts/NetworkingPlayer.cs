@@ -4,6 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class NetworkingPlayer 
 {
+    public string gameName;//to be set from editor
     public string playerName;
     public string playerId;
     public string imageURL;

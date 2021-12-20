@@ -37,13 +37,13 @@ public class GameManagerNetwork : MonoBehaviour
     [SerializeField] GameObject Timeline;
     [SerializeField] GameObject HowToPlayCanvas;
     [SerializeField] GameObject Matchmaking;
-    [SerializeField] GameObject TableRow2;
+  //  [SerializeField] GameObject TableRow2;
 
 
 
 
 
-    [SerializeField] Text scoreTextHolder;
+   // [SerializeField] Text scoreTextHolder;
     [SerializeField] Text OpponentScoreTextHolder;
     [SerializeField] TextMeshProUGUI WinnerNameText;
     [SerializeField] TextMeshProUGUI scoreOnScoreBoard;
@@ -57,7 +57,7 @@ public class GameManagerNetwork : MonoBehaviour
     //string currentTag;
    // public GameObject knifeImage;
     int score;
-    [SerializeField]Text StageText;
+    [SerializeField]TextMeshProUGUI StageText;
     public bool isGameOver;
     [SerializeField] GameObject findingPlayerScreen;
     [SerializeField] GameObject StartGameOverScreen;
@@ -114,7 +114,7 @@ public class GameManagerNetwork : MonoBehaviour
         while(foundOtherPlayer == false)
         {
             yield return new WaitForSecondsRealtime(0.5f);
-            scoreTextHolder.text = gameManager.Bowler.score.ToString();
+         //   scoreTextHolder.text = gameManager.Bowler.score.ToString();
             WebRequestHandler.Instance.Get(serverURL + "fetchOtherPlayerData/" +myRoomId+"/"+thisPlayer.playerId, (response, status) => {
 
                 otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
@@ -185,7 +185,7 @@ public class GameManagerNetwork : MonoBehaviour
 
                     if(response != "false" && foundWinner==false)
                     {
-                        TableRow2.SetActive(false);
+                      //  TableRow2.SetActive(false);
                         foundWinner = true;
                         NetworkingPlayer winner = JsonUtility.FromJson<NetworkingPlayer>(response);
                         if (winner.playerId == thisPlayer.playerId)
@@ -194,6 +194,7 @@ public class GameManagerNetwork : MonoBehaviour
                             Debug.Log(thisPlayer.playerName + " won with score " + thisPlayer.score);
                             WinnerNameText.text = thisPlayer.playerName;
                             LosserNameText.text = otherPlayer.playerName;
+                            StageText.text = "1";
                           //  displayWinnerOrLosserText.text = "YOU WON";
                            // displayScoreTextAtEnd.text = thisPlayer.score.ToString();
                             scoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
@@ -207,8 +208,10 @@ public class GameManagerNetwork : MonoBehaviour
                             Debug.Log(otherPlayer.playerName + " won with score " + otherPlayer.score);
                             WinnerNameText.text = otherPlayer.playerName;
                             LosserNameText.text = thisPlayer.playerName;
-                          //  displayWinnerOrLosserText.text = "YOU LOSE";
-                         //   displayScoreTextAtEnd.text = thisPlayer.score.ToString();
+                            StageText.text = "2";
+
+                            //  displayWinnerOrLosserText.text = "YOU LOSE";
+                            //   displayScoreTextAtEnd.text = thisPlayer.score.ToString();
                             scoreOnScoreBoard.text = otherPlayer.score.ToString();
                             opponentScoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
                         }
