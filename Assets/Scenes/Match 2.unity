@@ -1835,6 +1835,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1954982510765790535, guid: 3f97b2ebdfee84e529a5dea435df930e, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954982510765790535, guid: 3f97b2ebdfee84e529a5dea435df930e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954982510765790535, guid: 3f97b2ebdfee84e529a5dea435df930e, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9019608
+      objectReference: {fileID: 0}
     - target: {fileID: 1954982510784998262, guid: 3f97b2ebdfee84e529a5dea435df930e, type: 3}
       propertyPath: m_Name
       value: Matchmaking
@@ -5008,7 +5020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1033572591
 Transform:
   m_ObjectHideFlags: 0
@@ -5787,7 +5799,6 @@ MonoBehaviour:
   Timeline: {fileID: 32671597}
   HowToPlayCanvas: {fileID: 825034104}
   Matchmaking: {fileID: 1600401447}
-  scoreTextHolder: {fileID: 0}
   OpponentScoreTextHolder: {fileID: 1334238290}
   WinnerNameText: {fileID: 1572564493}
   scoreOnScoreBoard: {fileID: 699805416}
@@ -5804,6 +5815,7 @@ MonoBehaviour:
   gameManager: {fileID: 2027283622}
   serverURL: https://gamejoyproserver1v1.herokuapp.com/
   thisPlayer:
+    gameName: 
     playerName: Dig
     playerId: 
     imageURL: 
