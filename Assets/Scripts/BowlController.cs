@@ -8,26 +8,26 @@ using UnityEngine.SceneManagement;
 
 public class BowlController : MonoBehaviour
 {
-    public GameObject ball;   //ball prefab
+    [SerializeField] GameObject ball;   //ball prefab
     public GameObject newBall; //Instantiated GameObject
     public int score = 0;
-    public WicketController wicketController;
+    [SerializeField] WicketController wicketController;
     public int noOfBalls = 0;
     int ballTypeIndex = 0;
-    public Transform TipSpot; 
-    public float throwingSpeed = 5f;
-    public Vector3 throwingDirection = new Vector3(0,-10,-30);
-    public Vector3 spinDirection = new Vector3(0, 0, 0);
-    public float spinIntensity = 3f;
+    [SerializeField] Transform TipSpot;
+    [SerializeField] float throwingSpeed = 5f;
+    [SerializeField] Vector3 throwingDirection = new Vector3(0,-10,-30);
+    [SerializeField] Vector3 spinDirection = new Vector3(0, 0, 0);
+    [SerializeField] float spinIntensity = 3f;
 
-    public Text Over;
+    [SerializeField] Text Over;
     public Text Score;
     Animator bowlingAnimator;
-    public string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
-    public GameObject gameManager;
-    public Vector3 error = new Vector3(0, -2f, 0);
+    [SerializeField] string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
+    [SerializeField] GameObject gameManager;
+    [SerializeField] Vector3 error = new Vector3(0, -2f, 0);
     public bool canSwing = false;
-    public GameObject EarlyLateBar;
+    [SerializeField] GameObject EarlyLateBar;
     //bool offBall = false;
     //bool armBall = false;
     //bool fast = false;
@@ -37,12 +37,12 @@ public class BowlController : MonoBehaviour
 
     public bool  canPlayOff = false;
     public bool  canPlayLeg = false;
-    public GameObject lcd_arm;
-    public GameObject lcd_fast;
+    [SerializeField] GameObject lcd_arm;
+    [SerializeField] GameObject lcd_fast;
 
-    public GameObject lcd_off;
+    [SerializeField] GameObject lcd_off;
 
-    public GameObject lcd_leg;
+    [SerializeField] GameObject lcd_leg;
 
 
     //public GameObject ballDistance;
@@ -85,19 +85,7 @@ public class BowlController : MonoBehaviour
     public void destroyBall() {
         Destroy(newBall);
         EarlyLateBar.SetActive(true);
-        if (wicketController.isBowled)
-        {
-            bowlingAnimator.SetBool("Finished", false);
-
-            bowlingAnimator.SetBool("Bowled", true);
-            wicketController.isBowled = false;
-        }
-        else
-        {
-            bowlingAnimator.SetBool("Finished", true);
-
-            bowlingAnimator.SetBool("Bowled", false);
-        }
+        
         bowlingAnimator.SetBool("Finished", true);
         
         Over.text = "Over: " + noOfBalls.ToString() + "/12";

@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class LookAtBall : MonoBehaviour
 {
-    public float smoothSpeed = 10f;
+    [SerializeField] float smoothSpeed = 10f;
 
-    public Transform target;
+    [SerializeField] Transform target;
     Quaternion initialRot;
-    public Vector3 offset = new Vector3(0f, 0f, -5f);
+    [SerializeField] Vector3 offset = new Vector3(0f, 0f, -5f);
     Vector3 initialPos;
     bool look = false;
     // public BatsmenController batsmenController;
-    public BowlController bowlController;
+    [SerializeField] BowlController bowlController;
     Animator anim;
     // Start is called before the first frame update
     void Start()
     {
-        initialPos = new Vector3(0.19f, 2.3f, -10.47f);
-        initialRot = new Quaternion(0.07063f, 0.00017f, -0.00244f, 0.99750f);
+        initialPos = new Vector3(0.19f, 1.73f, -9.78f);
+        initialRot = new Quaternion(0.0503314f, 0f, -0.00244f, 0.9987296f);
         anim = GetComponent<Animator>();
        // Invoke("PlayCameraAnimation", 8.4f);
     }

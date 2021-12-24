@@ -5,11 +5,11 @@ using UnityEngine;
 public class WicketController : MonoBehaviour
 {
     Animator anim;
-    public BowlController bowlController;
-    public AudioSource audioSource;
-    public bool isBowled = false;
-  //  public GameObject outDisplay;
-    public BatsmenController batsmenController;
+    [SerializeField] BowlController bowlController;
+    [SerializeField] AudioSource audioSource;
+  
+    //  public GameObject outDisplay;
+    [SerializeField] BatsmenController batsmenController;
    // BowlController bowlControllerWicket;
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class WicketController : MonoBehaviour
     {
         if(collision.gameObject.name == "Ball(Clone)")
         {
-            isBowled = true;
+         
             bowlController.score -= 2;
             bowlController.Score.text = "Score: " + bowlController.score.ToString();
             bowlController.GetComponent<Animator>().Play("Celebration_11");

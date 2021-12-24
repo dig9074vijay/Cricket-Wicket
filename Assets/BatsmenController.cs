@@ -9,15 +9,15 @@ public class BatsmenController : MonoBehaviour
 {
     //Inspector field for the Shaker component.
  //
-    public GameObject bat;
-    public GameObject EntryWindow;
-    public GameObject ExitWindow;
+    [SerializeField] GameObject bat;
+    [SerializeField] GameObject EntryWindow;
+    [SerializeField] GameObject ExitWindow;
     AudioSource audioSource;
-    public AudioClip thatsHuge;
-    public AudioClip ballHitClip;
+    [SerializeField] AudioClip thatsHuge;
+    [SerializeField] AudioClip ballHitClip;
 
-    public GameObject Umpire;
-   public Animator umpireAnim;
+    [SerializeField] GameObject Umpire;
+    public Animator umpireAnim;
 
     bool displayDistance=false;
     TextMeshPro ballDistance;
@@ -25,29 +25,29 @@ public class BatsmenController : MonoBehaviour
     Animator anim;
     private Animator bowlingAnimator;
     public BowlController bowlController;
-    public string[] offShots = new string[]{"SquareCut","LateCut","Cover"};
-    public string[] legShots = new string[]{ "Hook", "Sweep", "StDrive" };
+    string[] offShots = new string[]{"SquareCut","OnDrive","Cover"};
+    string[] legShots = new string[]{ "Hook", "Sweep", "StDrive" };
     int index = 0;
   //  public CameraShaker cameraShaker;
-    public int[] scores = new int[] { 1, 2, 3, 4, 6 };
-    public GameObject Boom;
+    int[] scores = new int[] { 1, 2, 3, 4, 6 };
+    [SerializeField] GameObject Boom;
 
-   // public Camera mainCamera;
-  // public GameObject Bowler;
-   
-   
+    // public Camera mainCamera;
+    // public GameObject Bowler;
 
-    public LookAtBall look;
+
+
+    [SerializeField] LookAtBall look;
 
     Vector3 offForce = new Vector3(20f, 10f, 12f);
     Vector3 legForce = new Vector3(-10f, 10f, 12f);
 
 
-    public GameObject Six;
-    public GameObject Four;
-    public GameObject Miss;
+    [SerializeField] GameObject Six;
+    [SerializeField] GameObject Four;
+    [SerializeField] GameObject Miss;
     Transform HitTimePosition;
-    public GameObject HitTime; //UI element for displaying how later or early the ball is hit
+    [SerializeField] GameObject HitTime; //UI element for displaying how later or early the ball is hit
    // public float HitPositionZ;
     int runIndex;
 
@@ -113,6 +113,7 @@ public class BatsmenController : MonoBehaviour
             if (BallHitWindow.canHit && bowlController.canPlayOff)
             {
                 index = Random.Range(0, 3);
+                Debug.Log(offShots[index]);
                 anim.SetTrigger(offShots[index]);
                 OffShot();
 
@@ -129,6 +130,7 @@ public class BatsmenController : MonoBehaviour
             else
             {
                 index = Random.Range(0, 3);
+                Debug.Log(offShots[index]);
 
                 anim.SetTrigger(offShots[index]);
                 StartCoroutine(BoundaryDisplay(Miss));
@@ -153,13 +155,13 @@ public class BatsmenController : MonoBehaviour
             runIndex = Random.Range(3, 5);
             if (runIndex == 3)
             {
-                legForce = new Vector3(-8f, 5f, 18f);
+                legForce = new Vector3(-6f, 3f, 10f);
                 umpireAnim.Play("Four");
             }
 
             else
             {
-                legForce = new Vector3(-10f, 10f, 18f);
+                legForce = new Vector3(-7f, 6f, 13f);
                 umpireAnim.Play("Six");
 
             }
@@ -168,7 +170,7 @@ public class BatsmenController : MonoBehaviour
         {
             runIndex = Random.Range(0, 3);
 
-            legForce = new Vector3(-3f,4f,15f);
+            legForce = new Vector3(-3f,4f,7f);
         }
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(legForce, ForceMode.Impulse);
         
@@ -203,12 +205,12 @@ public class BatsmenController : MonoBehaviour
             runIndex = Random.Range(3, 5);
             if (runIndex == 3)
             {
-                offForce = new Vector3(10f, 5f, 15f);
+                offForce = new Vector3(6f, 3f, 9f);
                 umpireAnim.Play("Four");
             }
             else
             {
-                offForce = new Vector3(20f, 10f, 15f);
+                offForce = new Vector3(8f, 8f, 12f);
                 umpireAnim.Play("Six");
 
             }
@@ -216,7 +218,7 @@ public class BatsmenController : MonoBehaviour
         else
         {
             runIndex = Random.Range(0, 3);
-            offForce = new Vector3(8f, 3f, 13f);
+            offForce = new Vector3(4f, 1.2f, 6f);
 
 
         }
@@ -244,7 +246,7 @@ public class BatsmenController : MonoBehaviour
 
     IEnumerator HitWithBoom()
     {
-        
+    //    Boom.transform.position = bowlController.newBall.transform.position;
         bowlController.newBall.transform.parent = bat.transform;
         Boom.SetActive(true);
         bowlController.newBall.GetComponent<TrailRenderer>().enabled = false;

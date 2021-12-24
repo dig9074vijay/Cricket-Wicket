@@ -5,10 +5,10 @@ using UnityEngine;
 public class MatchmakingController : MonoBehaviour
 {
 
-    public GameObject Timeline;
-    public GameObject HowToPlayCanvas;
-    public GameObject Matchmaking;
-    public GameObject gameManager;
+    [SerializeField] GameObject Timeline;
+    [SerializeField] GameObject HowToPlayCanvas;
+    [SerializeField] GameObject Matchmaking;
+    [SerializeField] GameObject gameManager;
     // Start is called before the first frame update
     void Start()
     {

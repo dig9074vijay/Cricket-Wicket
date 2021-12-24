@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BallHitWindow : MonoBehaviour
 {
+    
     public static bool canHit;
    // public bool CanHit{ get { return canHit; } }
     // Start is called before the first frame update
     void Start()
     {
        canHit = false;
+       // transform.GetChild(0).GetComponent<Rigidbody>().freezeRotation = true;
     }
 
     // Update is called once per frame
