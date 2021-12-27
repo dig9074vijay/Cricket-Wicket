@@ -26,8 +26,9 @@ public class BatsmenController : MonoBehaviour
     private Animator bowlingAnimator;
     public BowlController bowlController;
     string[] offShots = new string[]{"SquareCut","OnDrive","Cover"};
-    string[] legShots = new string[]{ "Hook", "Sweep", "StDrive" };
+    string[] legShots = new string[]{ "Helicopter", "Sweep", "StDrive" };
     int index = 0;
+    public int ScoreMultiplier = 1;
   //  public CameraShaker cameraShaker;
     int[] scores = new int[] { 1, 2, 3, 4, 6 };
     [SerializeField] GameObject Boom;
@@ -66,7 +67,7 @@ public class BatsmenController : MonoBehaviour
     {
         //  Debug.Log(BallHitWindow.canHit);
         if(displayDistance == true)
-        ballDistance.text = (Vector3.Distance(bowlController.newBall.transform.position, transform.position)).ToString("0") + "m";
+        ballDistance.text = "+" + (Vector3.Distance(bowlController.newBall.transform.position, transform.position)).ToString("0") + "m";
     }
 
     //batsmen shot animations called from the button clicks
@@ -78,6 +79,7 @@ public class BatsmenController : MonoBehaviour
             if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit && bowlController.canPlayLeg)
             {
                 index = Random.Range(0, 3);
+                Time.timeScale = 0.8f;
                 anim.SetTrigger(legShots[index]);
                  LegShot();
 
@@ -174,7 +176,7 @@ public class BatsmenController : MonoBehaviour
         }
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(legForce, ForceMode.Impulse);
         
-        bowlController.score += scores[runIndex];
+        bowlController.score += (scores[runIndex]*ScoreMultiplier);
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
        
         if (scores[runIndex] == 6)
@@ -224,7 +226,7 @@ public class BatsmenController : MonoBehaviour
         }
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(offForce, ForceMode.Impulse);
        
-        bowlController.score += scores[runIndex];
+        bowlController.score += (scores[runIndex]*ScoreMultiplier);
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
         if (scores[runIndex] == 6)
         {
@@ -253,7 +255,8 @@ public class BatsmenController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         // anim.Play("BattingIdle_01 0");
     
-        bowlController.newBall.transform.parent = transform.root;
+       // bowlController.newBall.transform.parent = bat.gameObject.transform;
+     //   bowlController.newBall.transform.position = new Vector3(0,0,0);
         Boom.SetActive(false);
         Debug.Log("HitWithBoom");
         yield return new WaitForSeconds(0.5f);
@@ -269,7 +272,7 @@ public class BatsmenController : MonoBehaviour
     }
 
     IEnumerator BoundaryDisplay(GameObject gO) {
-        gO.SetActive(true);
+       // gO.SetActive(true);
        
         yield return new WaitForSeconds(1.5f);
         gO.SetActive(false);

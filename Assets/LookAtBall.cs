@@ -23,15 +23,7 @@ public class LookAtBall : MonoBehaviour
        // Invoke("PlayCameraAnimation", 8.4f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //if (look)
-        //{
-        //    transform.position = target.position - offset;
-        //}
-        //Debug.Log(transform.rotation);
-    }
+    
 
     void FixedUpdate()
     {

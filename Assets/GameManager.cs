@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour
     public Canvas HowToPlay;
     public GameObject LCD;
     public BowlController Bowler;
-    public GameObject Batsmen;
-    public bool isGameOver = false;
-
+    public BatsmenController Batsmen;
+    public bool isGameOver = true;
+    [SerializeField] GameObject Message2x;
     public TextMeshProUGUI FinalScore;
     public TextMeshProUGUI FinalScoreInTable;
-
+    bool displayed = false;
   //  public TextMeshProUGUI OtherPlayerFinalScore;
     public Camera mainCamera;
   //  public Camera batsmenCamera;
@@ -51,7 +51,13 @@ public class GameManager : MonoBehaviour
             gameOver();
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Bowler.noOfBalls > 5 && displayed)
+        {
+            displayed = false;
+            StartCoroutine(Display2x());
+        }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
         {
             isGamePaused = !isGamePaused;
            
@@ -64,6 +70,16 @@ public class GameManager : MonoBehaviour
         {
             ResumeGame();
         } 
+    }
+
+
+    IEnumerator Display2x()
+    {
+        Batsmen.ScoreMultiplier = 2;
+        Message2x.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        Message2x.SetActive(false);
+
     }
 
     public void Restart()
