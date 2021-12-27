@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject Message2x;
     public TextMeshProUGUI FinalScore;
     public TextMeshProUGUI FinalScoreInTable;
-    bool displayed = false;
+    bool displayed = true;
   //  public TextMeshProUGUI OtherPlayerFinalScore;
     public Camera mainCamera;
   //  public Camera batsmenCamera;
@@ -51,13 +51,14 @@ public class GameManager : MonoBehaviour
             gameOver();
         }
 
-        if (Bowler.noOfBalls > 5 && displayed)
+        if (Bowler.noOfBalls > 6 && displayed)
         {
-            displayed = false;
             StartCoroutine(Display2x());
+            displayed = false;
+
         }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             isGamePaused = !isGamePaused;
            

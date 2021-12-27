@@ -19,7 +19,8 @@ public class BowlController : MonoBehaviour
     [SerializeField] Vector3 throwingDirection = new Vector3(0,-10,-30);
     [SerializeField] Vector3 spinDirection = new Vector3(0, 0, 0);
     [SerializeField] float spinIntensity = 3f;
-
+    float temp;
+    float tempOver;
     [SerializeField] Text Over;
     public Text Score;
     Animator bowlingAnimator;
@@ -50,7 +51,7 @@ public class BowlController : MonoBehaviour
     void Start()
     {
         bowlingAnimator = GetComponent<Animator>();
-        Over.text = "Over: "+ noOfBalls.ToString() + "/12";
+        Over.text = "Over: "+ noOfBalls.ToString() + "/2";
         Score.text = "Score: " + score.ToString();
 
         newBall = NewBallCreated();
@@ -87,8 +88,26 @@ public class BowlController : MonoBehaviour
         EarlyLateBar.SetActive(true);
         
         bowlingAnimator.SetBool("Finished", true);
-        
-        Over.text = "Over: " + noOfBalls.ToString() + "/12";
+        tempOver = noOfBalls / 10f;
+        Debug.Log(tempOver);
+        if (tempOver < 0.6f)
+            Over.text = "Over: " + tempOver.ToString() + "/2";
+        else if (tempOver == 0.6f)
+            Over.text = "Over: " + "1/2";
+        else if (tempOver > 0.6f && tempOver != 0.12f)
+        {
+            temp = 1f + tempOver - 0.6f;
+            Debug.Log(temp);
+
+            Over.text = "Over: " + temp.ToString() + "/2";
+
+        }
+        else if (tempOver == 0.12f)
+        {
+            Over.text = "Over: " + "2/2";
+
+        }
+
         Random.Range(0, 4);
         NextBall();
     }
