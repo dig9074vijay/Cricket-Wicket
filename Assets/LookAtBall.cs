@@ -13,6 +13,8 @@ public class LookAtBall : MonoBehaviour
     bool look = false;
     // public BatsmenController batsmenController;
     [SerializeField] BowlController bowlController;
+    [SerializeField] BatsmenController batController;
+
     Animator anim;
     // Start is called before the first frame update
     void Start()
@@ -40,23 +42,35 @@ public class LookAtBall : MonoBehaviour
     public void FollowBall()
     {
         target = bowlController.newBall.GetComponent<Transform>();
+
         anim.enabled = false;
       //  initialRot = transform.rotation;
         look = true;
+        if (batController.displayParticles)
+        {
+            target.GetChild(1).gameObject.SetActive(true);
+            target.GetChild(2).gameObject.SetActive(true);
+        }
         Invoke("BackToPitch", 3f);
     }
 
     public void BackToPitch()
     {
+        target.GetChild(1).gameObject.SetActive(false);
+        target.GetChild(2).gameObject.SetActive(false);
         look = false;
+
         transform.position = initialPos;
         transform.rotation = initialRot;
+
         bowlController.destroyBall();
+        batController.displayParticles = false;
+
     }
 
     //   public Transform target;
 
-   
+
     //public Vector3 offset;
 
     void PlayCameraAnimation()

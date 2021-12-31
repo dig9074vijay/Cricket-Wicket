@@ -25,7 +25,7 @@ public class BowlController : MonoBehaviour
     public Text Score;
     Animator bowlingAnimator;
     [SerializeField] string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
-    [SerializeField] GameObject gameManager;
+    [SerializeField] GameManager gameManager;
     [SerializeField] Vector3 error = new Vector3(0, -2f, 0);
     public bool canSwing = false;
     [SerializeField] GameObject EarlyLateBar;
@@ -133,7 +133,11 @@ public class BowlController : MonoBehaviour
         newBall.SetActive(true);
         canSwing = true;
         //newBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,-10f,30f) * throwingSpeed, ForceMode.Impulse);
-       // Debug.Log("ThrowBall Invoked");
+        // Debug.Log("ThrowBall Invoked");
+       // gameManager.SlowGame();
+        //Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        Debug.Log(Time.timeScale);
+     //   Time.fixedDeltaTime
         newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed - error, ForceMode.Impulse);
     }
 

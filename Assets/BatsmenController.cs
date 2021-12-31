@@ -15,6 +15,12 @@ public class BatsmenController : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] AudioClip thatsHuge;
     [SerializeField] AudioClip ballHitClip;
+    [SerializeField] TextMeshProUGUI Ball1Score;
+    [SerializeField] TextMeshProUGUI Ball2Score;
+    [SerializeField] TextMeshProUGUI Ball3Score;
+    [SerializeField] TextMeshProUGUI Ball4Score;
+    [SerializeField] TextMeshProUGUI Ball5Score;
+    [SerializeField] TextMeshProUGUI Ball6Score;
 
     [SerializeField] GameObject Umpire;
     public Animator umpireAnim;
@@ -36,7 +42,7 @@ public class BatsmenController : MonoBehaviour
     // public Camera mainCamera;
     // public GameObject Bowler;
 
-
+     public bool displayParticles = false;
 
     [SerializeField] LookAtBall look;
 
@@ -72,6 +78,8 @@ public class BatsmenController : MonoBehaviour
 
     //batsmen shot animations called from the button clicks
     public void PlayLeg() {
+      //  Time.timeScale = 1f;
+        //Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         HitTimePosition.localPosition = new Vector3(0f,Remap(bowlController.newBall.transform.position.z, -7.23f,-4.2f,-32f, 34f),0f);
         if (bowlController.canSwing)
@@ -79,7 +87,7 @@ public class BatsmenController : MonoBehaviour
             if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit && bowlController.canPlayLeg)
             {
                 index = Random.Range(0, 3);
-                Time.timeScale = 0.8f;
+          
                 anim.SetTrigger(legShots[index]);
                  LegShot();
 
@@ -108,6 +116,9 @@ public class BatsmenController : MonoBehaviour
 
     public void PlayOff()
     {
+      // Time.timeScale = 1f;
+        //Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
         HitTimePosition.localPosition = new Vector3(0f, Remap(bowlController.newBall.transform.position.z, -4.2f, -7.23f, 34f, -32f), 0f);
 
         if (bowlController.canSwing)
@@ -175,7 +186,42 @@ public class BatsmenController : MonoBehaviour
             legForce = new Vector3(-3f,4f,7f);
         }
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(legForce, ForceMode.Impulse);
-        
+        if (bowlController.noOfBalls == 1 || bowlController.noOfBalls == 7)
+        {
+            Ball1Score.gameObject.transform.parent.gameObject.SetActive(true);
+            Ball1Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 2 || bowlController.noOfBalls == 8)
+        {
+            Ball2Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+    
+            Ball2Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 3 || bowlController.noOfBalls == 9)
+        {
+            Ball3Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball3Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 4 || bowlController.noOfBalls == 10)
+        {
+            Ball4Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball4Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 5 || bowlController.noOfBalls == 11)
+        {
+            Ball5Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball5Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 6 || bowlController.noOfBalls == 12)
+        {
+            Ball6Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball6Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
         bowlController.score += (scores[runIndex]*ScoreMultiplier);
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
        
@@ -272,11 +318,11 @@ public class BatsmenController : MonoBehaviour
     }
 
     IEnumerator BoundaryDisplay(GameObject gO) {
-       // gO.SetActive(true);
-       
+        // gO.SetActive(true);
+        displayParticles = true;
         yield return new WaitForSeconds(1.5f);
         gO.SetActive(false);
-      
+        displayParticles = false;
     }
 
     public static float Remap(float input, float oldLow, float oldHigh, float newLow, float newHigh)

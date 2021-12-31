@@ -133,11 +133,19 @@ public class GameManager : MonoBehaviour
     void PauseGame()
     {
         Time.timeScale = 0;
-    }
+        //  Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
+    }
     void ResumeGame()
     {
         Time.timeScale = 1;
+      //  Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
+    }
+
+    public void SlowGame()
+    {
+        Time.timeScale = 0.5f;
     }
 
     IEnumerator StartCount() {
