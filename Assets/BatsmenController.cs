@@ -244,6 +244,7 @@ public class BatsmenController : MonoBehaviour
 
     public void OffShot()
     {
+
         StartCoroutine(HitWithBoom());
         audioSource.clip = ballHitClip;
 
@@ -271,7 +272,42 @@ public class BatsmenController : MonoBehaviour
 
         }
         bowlController.newBall.GetComponent<Rigidbody>().AddForce(offForce, ForceMode.Impulse);
-       
+        if (bowlController.noOfBalls == 1 || bowlController.noOfBalls == 7)
+        {
+            Ball1Score.gameObject.transform.parent.gameObject.SetActive(true);
+            Ball1Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 2 || bowlController.noOfBalls == 8)
+        {
+            Ball2Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+
+            Ball2Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 3 || bowlController.noOfBalls == 9)
+        {
+            Ball3Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball3Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 4 || bowlController.noOfBalls == 10)
+        {
+            Ball4Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball4Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 5 || bowlController.noOfBalls == 11)
+        {
+            Ball5Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball5Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
+        if (bowlController.noOfBalls == 6 || bowlController.noOfBalls == 12)
+        {
+            Ball6Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball6Score.text = (scores[runIndex] * ScoreMultiplier).ToString();
+        }
         bowlController.score += (scores[runIndex]*ScoreMultiplier);
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
         if (scores[runIndex] == 6)
