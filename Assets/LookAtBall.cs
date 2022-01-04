@@ -48,16 +48,17 @@ public class LookAtBall : MonoBehaviour
         look = true;
         if (batController.displayParticles)
         {
-            target.GetChild(1).gameObject.SetActive(true);
-            target.GetChild(2).gameObject.SetActive(true);
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(true);
+
         }
         Invoke("BackToPitch", 3f);
     }
 
     public void BackToPitch()
     {
-        target.GetChild(1).gameObject.SetActive(false);
-        target.GetChild(2).gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
         look = false;
 
         transform.position = initialPos;

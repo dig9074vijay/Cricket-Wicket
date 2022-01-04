@@ -50,8 +50,8 @@ public class BatsmenController : MonoBehaviour
     Vector3 legForce = new Vector3(-10f, 10f, 12f);
 
 
-    [SerializeField] GameObject Six;
-    [SerializeField] GameObject Four;
+    //[SerializeField] GameObject Six;
+    //[SerializeField] GameObject Four;
     [SerializeField] GameObject Miss;
     Transform HitTimePosition;
     [SerializeField] GameObject HitTime; //UI element for displaying how later or early the ball is hit
@@ -107,7 +107,7 @@ public class BatsmenController : MonoBehaviour
             {
                 index = Random.Range(0, 3);
                 anim.SetTrigger(legShots[index]);
-                StartCoroutine(BoundaryDisplay(Miss));
+                StartCoroutine(MissDisplay());
 
             }
             bowlController.canSwing = false;
@@ -146,7 +146,8 @@ public class BatsmenController : MonoBehaviour
                 Debug.Log(offShots[index]);
 
                 anim.SetTrigger(offShots[index]);
-                StartCoroutine(BoundaryDisplay(Miss));
+                StartCoroutine(MissDisplay());
+
             }
             bowlController.canSwing = false;
         }
@@ -224,18 +225,18 @@ public class BatsmenController : MonoBehaviour
         }
         bowlController.score += (scores[runIndex]*ScoreMultiplier);
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
-       
+
         if (scores[runIndex] == 6)
         {
-            StartCoroutine(BoundaryDisplay(Six));
+            StartCoroutine(BoundaryEffectDisplay());
 
 
         }
-        else if(scores[runIndex]== 4)
+        else if (scores[runIndex] == 4)
         {
-            StartCoroutine(BoundaryDisplay(Four));
+            StartCoroutine(BoundaryEffectDisplay());
         }
-      
+
         Debug.Log("Shot!!!");
         StartCoroutine("LookBall");
 
@@ -312,15 +313,15 @@ public class BatsmenController : MonoBehaviour
         bowlController.Score.text = "Score: " + bowlController.score.ToString();
         if (scores[runIndex] == 6)
         {
-            StartCoroutine(BoundaryDisplay(Six));
+            StartCoroutine(BoundaryEffectDisplay());
 
 
         }
         else if (scores[runIndex] == 4)
         {
-            StartCoroutine(BoundaryDisplay(Four));
+            StartCoroutine(BoundaryEffectDisplay());
         }
-       
+
         Debug.Log("Shot!!!");
         StartCoroutine("LookBall");
 
@@ -353,12 +354,192 @@ public class BatsmenController : MonoBehaviour
 
     }
 
-    IEnumerator BoundaryDisplay(GameObject gO) {
-        // gO.SetActive(true);
+
+    public void DisableAllScoreElements()
+    {
+        Ball1Score.gameObject.transform.parent.gameObject.SetActive(false);
+        Ball2Score.gameObject.transform.parent.gameObject.SetActive(false);
+
+        Ball3Score.gameObject.transform.parent.gameObject.SetActive(false);
+
+        Ball4Score.gameObject.transform.parent.gameObject.SetActive(false);
+
+        Ball5Score.gameObject.transform.parent.gameObject.SetActive(false);
+
+        Ball6Score.gameObject.transform.parent.gameObject.SetActive(false);
+
+
+    }
+
+    IEnumerator BoundaryEffectDisplay() {
+      
         displayParticles = true;
         yield return new WaitForSeconds(1.5f);
-        gO.SetActive(false);
+        
         displayParticles = false;
+    }
+
+    public void DisplayScoreOnWicketBall()
+    {
+        if (bowlController.noOfBalls == 1 || bowlController.noOfBalls == 7)
+        {
+            Ball1Score.gameObject.transform.parent.gameObject.SetActive(true);
+            Ball1Score.text = (-2 * ScoreMultiplier).ToString();
+
+        }
+        if (bowlController.noOfBalls == 2 || bowlController.noOfBalls == 8)
+        {
+            Ball2Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+
+            Ball2Score.text = (-2 * ScoreMultiplier).ToString();
+
+
+        }
+        if (bowlController.noOfBalls == 3 || bowlController.noOfBalls == 9)
+        {
+            Ball3Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball3Score.text = (-2 * ScoreMultiplier).ToString();
+
+
+        }
+        if (bowlController.noOfBalls == 4 || bowlController.noOfBalls == 10)
+        {
+            Ball4Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball4Score.text = (-2 * ScoreMultiplier).ToString();
+
+
+        }
+        if (bowlController.noOfBalls == 5 || bowlController.noOfBalls == 11)
+        {
+            Ball5Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball5Score.text = (-2 * ScoreMultiplier).ToString();
+
+        }
+        if (bowlController.noOfBalls == 6 || bowlController.noOfBalls == 12)
+        {
+            Ball6Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball6Score.text = (-2 * ScoreMultiplier).ToString();
+
+
+        }
+    }
+
+    public void DisplayScoreOnDotBall()
+    {
+        if (bowlController.noOfBalls == 1 || bowlController.noOfBalls == 7)
+        {
+            if (!Ball1Score.gameObject.transform.parent.gameObject.activeInHierarchy)
+            {
+                Ball1Score.gameObject.transform.parent.gameObject.SetActive(true);
+                Ball1Score.text = "-";
+            }
+            
+
+        }
+        if (bowlController.noOfBalls == 2 || bowlController.noOfBalls == 8)
+        {
+            if (!Ball2Score.gameObject.transform.parent.gameObject.activeInHierarchy)
+            {
+                Ball2Score.gameObject.transform.parent.gameObject.SetActive(true);
+                Ball2Score.text = "-";
+            }
+
+
+        }
+        if (bowlController.noOfBalls == 3 || bowlController.noOfBalls == 9)
+        {
+            if (!Ball3Score.gameObject.transform.parent.gameObject.activeInHierarchy)
+            {
+                Ball3Score.gameObject.transform.parent.gameObject.SetActive(true);
+                Ball3Score.text = "-";
+            }
+
+
+        }
+        if (bowlController.noOfBalls == 4 || bowlController.noOfBalls == 10)
+        {
+            if (!Ball4Score.gameObject.transform.parent.gameObject.activeInHierarchy)
+            {
+                Ball4Score.gameObject.transform.parent.gameObject.SetActive(true);
+                Ball4Score.text = "-";
+            }
+
+
+        }
+        if (bowlController.noOfBalls == 5 || bowlController.noOfBalls == 11)
+        {
+            if (!Ball5Score.gameObject.transform.parent.gameObject.activeInHierarchy)
+            {
+                Ball5Score.gameObject.transform.parent.gameObject.SetActive(true);
+                Ball5Score.text = "-";
+            }
+        }
+        if (bowlController.noOfBalls == 6 || bowlController.noOfBalls == 12)
+        {
+            if (!Ball6Score.gameObject.transform.parent.gameObject.activeInHierarchy)
+            {
+                Ball6Score.gameObject.transform.parent.gameObject.SetActive(true);
+                Ball6Score.text = "-";
+            }
+
+
+        }
+    }
+
+
+    IEnumerator MissDisplay()
+    {
+        if (bowlController.noOfBalls == 1 || bowlController.noOfBalls == 7)
+        {
+            Ball1Score.gameObject.transform.parent.gameObject.SetActive(true);
+            Ball1Score.text = "-";
+        }
+        if (bowlController.noOfBalls == 2 || bowlController.noOfBalls == 8)
+        {
+            Ball2Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+
+            Ball2Score.text = "-";
+
+        }
+        if (bowlController.noOfBalls == 3 || bowlController.noOfBalls == 9)
+        {
+            Ball3Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball3Score.text = "-";
+
+        }
+        if (bowlController.noOfBalls == 4 || bowlController.noOfBalls == 10)
+        {
+            Ball4Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball4Score.text = "-";
+
+        }
+        if (bowlController.noOfBalls == 5 || bowlController.noOfBalls == 11)
+        {
+            Ball5Score.gameObject.transform.parent.gameObject.SetActive(true);
+
+            Ball5Score.text = "-";
+
+        }
+        if (bowlController.noOfBalls == 6 || bowlController.noOfBalls == 12)
+        {
+            Ball6Score.gameObject.transform.parent.gameObject.SetActive(true);
+            
+            Ball6Score.text = "-";
+
+        }
+        Miss.SetActive(true);
+        
+        yield return new WaitForSeconds(1.5f);
+        Miss.SetActive(false);
+       
     }
 
     public static float Remap(float input, float oldLow, float oldHigh, float newLow, float newHigh)

@@ -44,7 +44,7 @@ public class BowlController : MonoBehaviour
     [SerializeField] GameObject lcd_off;
 
     [SerializeField] GameObject lcd_leg;
-
+    [SerializeField] BatsmenController batsmenController;
 
     //public GameObject ballDistance;
     // Start is called before the first frame update
@@ -93,7 +93,10 @@ public class BowlController : MonoBehaviour
         if (tempOver < 0.6f)
             Over.text = "Over: " + tempOver.ToString() + "/2";
         else if (tempOver == 0.6f)
+        {
             Over.text = "Over: " + "1/2";
+            batsmenController.DisableAllScoreElements();
+        }
         else if (tempOver > 0.6f && tempOver != 0.12f)
         {
             temp = 1f + tempOver - 0.6f;
@@ -144,6 +147,7 @@ public class BowlController : MonoBehaviour
     public GameObject NewBallCreated()
     {
         noOfBalls++;
+        batsmenController.DisplayScoreOnDotBall();
         return Instantiate(ball);
     }
 

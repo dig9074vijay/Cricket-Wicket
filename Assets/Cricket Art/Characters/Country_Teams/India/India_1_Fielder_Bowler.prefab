@@ -1059,13 +1059,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4523055037456686}
   - component: {fileID: 95211337437805716}
+  - component: {fileID: 1964314493}
   m_Layer: 0
   m_Name: India_1_Fielder_Bowler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4523055037456686
 Transform:
   m_ObjectHideFlags: 0
@@ -1093,7 +1094,7 @@ Animator:
   m_GameObject: {fileID: 1451949142880934}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 990f786fdb33d334b866a27c70be4dd9, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b290bac06a2924269b1e3574a4932b38, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1103,6 +1104,46 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1964314493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451949142880934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccb2c7e77cda24a8eaf85b5207cc8801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ball: {fileID: 7188490474077407883, guid: a930a077d3bae47c1b0b0ed702eb5740, type: 3}
+  newBall: {fileID: 0}
+  score: 0
+  wicketController: {fileID: 0}
+  noOfBalls: 0
+  TipSpot: {fileID: 0}
+  throwingSpeed: 0.4
+  throwingDirection: {x: 0, y: -10, z: -30}
+  spinDirection: {x: 0, y: 0, z: 0}
+  spinIntensity: 0.9
+  Over: {fileID: 0}
+  Score: {fileID: 0}
+  ballTypes:
+  - ARM BALL
+  - FAST
+  - LEG SPIN
+  - OFF SPIN
+  gameManager: {fileID: 0}
+  error: {x: 0, y: -1.25, z: 0}
+  canSwing: 0
+  EarlyLateBar: {fileID: 0}
+  canPlayOff: 0
+  canPlayLeg: 0
+  lcd_arm: {fileID: 0}
+  lcd_fast: {fileID: 0}
+  lcd_off: {fileID: 0}
+  lcd_leg: {fileID: 0}
+  batsmenController: {fileID: 0}
 --- !u!1 &1455957354046000
 GameObject:
   m_ObjectHideFlags: 0
