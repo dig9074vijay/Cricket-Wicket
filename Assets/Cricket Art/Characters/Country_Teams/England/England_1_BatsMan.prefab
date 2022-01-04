@@ -2322,21 +2322,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bd8ec85dabe46db8216763527d0219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MyShaker: {fileID: 0}
-  ShakePreset: {fileID: 0}
+  bat: {fileID: 0}
   EntryWindow: {fileID: 0}
   ExitWindow: {fileID: 0}
-  ballHitWindow: {fileID: 5251892161657848314, guid: a930a077d3bae47c1b0b0ed702eb5740, type: 3}
+  thatsHuge: {fileID: 0}
+  ballHitClip: {fileID: 0}
+  Ball1Score: {fileID: 0}
+  Ball2Score: {fileID: 0}
+  Ball3Score: {fileID: 0}
+  Ball4Score: {fileID: 0}
+  Ball5Score: {fileID: 0}
+  Ball6Score: {fileID: 0}
+  Umpire: {fileID: 0}
+  umpireAnim: {fileID: 0}
   bowlController: {fileID: 0}
-  offShots:
-  - SquareCut
-  - LateCut
-  - Cover
-  legShots:
-  - Hook
-  - Sweep
-  - StDrive
-  cameraShaker: {fileID: 0}
+  ScoreMultiplier: 1
+  Boom: {fileID: 0}
+  displayParticles: 0
+  look: {fileID: 0}
+  Six: {fileID: 0}
+  Four: {fileID: 0}
+  Miss: {fileID: 0}
+  HitTime: {fileID: 0}
 --- !u!1 &1775355690521642
 GameObject:
   m_ObjectHideFlags: 0
