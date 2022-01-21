@@ -21,7 +21,7 @@ public class BatsmenController : MonoBehaviour
     [SerializeField] TextMeshProUGUI Ball4Score;
     [SerializeField] TextMeshProUGUI Ball5Score;
     [SerializeField] TextMeshProUGUI Ball6Score;
-
+    [SerializeField] GameObject BowledTimeline;
     [SerializeField] GameObject Umpire;
     public Animator umpireAnim;
 
@@ -536,7 +536,7 @@ public class BatsmenController : MonoBehaviour
 
         }
         Miss.SetActive(true);
-        
+      
         yield return new WaitForSeconds(1.5f);
         Miss.SetActive(false);
        

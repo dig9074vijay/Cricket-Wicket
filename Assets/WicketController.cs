@@ -7,7 +7,7 @@ public class WicketController : MonoBehaviour
     Animator anim;
     [SerializeField] BowlController bowlController;
     [SerializeField] AudioSource audioSource;
-  
+    [SerializeField] GameObject BowledTimeline;
     //  public GameObject outDisplay;
     [SerializeField] BatsmenController batsmenController;
    // BowlController bowlControllerWicket;
@@ -31,7 +31,7 @@ public class WicketController : MonoBehaviour
             batsmenController.DisplayScoreOnWicketBall();
             bowlController.score -= 2;
             bowlController.Score.text = "Score: " + bowlController.score.ToString();
-            bowlController.GetComponent<Animator>().Play("Celebration_11");
+            //  bowlController.GetComponent<Animator>().Play("Celebration_11");
             bowlController.destroyBall();
             audioSource.Play();
             StartCoroutine(PlaceWickets());
@@ -44,12 +44,17 @@ public class WicketController : MonoBehaviour
         while (true)
         {
             anim.SetBool("Bowled", true);
-          //  outDisplay.SetActive(true);
+            //  outDisplay.SetActive(true);
+            BowledTimeline.SetActive(true);
+
             batsmenController.umpireAnim.Play("Out");
 
             yield return new WaitForSeconds(1f);
           //  outDisplay.SetActive(false);
+
             anim.SetBool("Bowled", false);
+            yield return new WaitForSeconds(2.3f);
+            BowledTimeline.SetActive(false);
             break;
         }
     }

@@ -1637,8 +1637,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bowlController: {fileID: 0}
   audioSource: {fileID: 0}
-  isBowled: 0
-  outDisplay: {fileID: 0}
   batsmenController: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
@@ -3136,6 +3134,10 @@ PrefabInstance:
     - target: {fileID: 6869414195872576315, guid: 8cae3d1992a7149f59043da2d9e0f2cf, type: 3}
       propertyPath: m_Name
       value: GameOverScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 6869414195872576315, guid: 8cae3d1992a7149f59043da2d9e0f2cf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6869414195872576319, guid: 8cae3d1992a7149f59043da2d9e0f2cf, type: 3}
       propertyPath: m_Pivot.x

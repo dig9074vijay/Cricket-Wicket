@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class BowlController : MonoBehaviour
 {
     [SerializeField] GameObject ball;   //ball prefab
+ //   [SerializeField] GameObject bowledTimeline;
     public GameObject newBall; //Instantiated GameObject
     public int score = 0;
     [SerializeField] WicketController wicketController;
