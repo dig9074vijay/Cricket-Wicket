@@ -73,6 +73,8 @@ public class GameManagerNetwork : MonoBehaviour
     private void Start()
     {
         //thisText.text = baseAppData.jsonString;
+        // startReloadGameTime();
+
         StartCoroutine(startOnlinePlay());
     }
 
