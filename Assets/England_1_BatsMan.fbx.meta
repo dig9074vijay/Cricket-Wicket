@@ -33,7 +33,32 @@ ModelImporter:
   - first:
       74: 2068356581227773881
     second: HelicaptorShot_01
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CricketEngland_Kit
+    second: {fileID: 2100000, guid: fa45ca005b6fc475295a5c673afb2586, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cricket_Dress_England
+    second: {fileID: 2100000, guid: eddbaf71ba00448b0b686db2caea78e3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cricket_Face_TM_u0_v0
+    second: {fileID: 2100000, guid: 683b9ee507c5445a6a38e2c800b9e8b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cricket_body2_TM_u0_v0
+    second: {fileID: 2100000, guid: 950d62453b9d44527875cecaf2cb296a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Default_Material
+    second: {fileID: 2100000, guid: 6b9ad23c8c43f48cc81f0a160cfeb5dd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -24,6 +24,7 @@ public class BowlController : MonoBehaviour
     float tempOver;
     [SerializeField] Text Over;
     public Text Score;
+    [SerializeField] Text p1Score; 
     Animator bowlingAnimator;
     [SerializeField] string[] ballTypes = { "ARM BALL", "FAST", "LEG SPIN", "OFF SPIN" };
     [SerializeField] GameManager gameManager;
@@ -71,7 +72,7 @@ public class BowlController : MonoBehaviour
             destroyBall();
         }
 
-
+        p1Score.text = score.ToString();
         // ballDistance.GetComponent<TextMesh>().text = Vector3.Distance(ball.transform.position, new Vector3(0, 0, -7.61f)).ToString();
     }
 

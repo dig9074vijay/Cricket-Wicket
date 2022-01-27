@@ -37,6 +37,8 @@ public class BaseAppData : MonoBehaviour
         user_name = "John Doe";
         battle_id = "32";
         game_id = "32";
+        data.text = profile_image;
+
 #endif
         getIntentData();
     }
@@ -72,9 +74,10 @@ public class BaseAppData : MonoBehaviour
             //            Debug.Log(sub+"1");
             //        }
 
-           // string jsonString = GetProperty(extras, "data");
+            // string jsonString = GetProperty(extras, "data");
 
-          //  data.text = "Base app data error!";
+            //  data.text = "Base app data error!";
+      
 
             player_id = GetProperty(extras, "player_id");
             token = GetProperty(extras, "token");
@@ -83,9 +86,8 @@ public class BaseAppData : MonoBehaviour
             battle_id = GetProperty(extras, "battle_id");
             profile_image = GetProperty(extras, "profile_image");
             wallet_amount = GetProperty(extras, "wallet_amount");
-
-         //   data.text = "";
-
+            //   data.text = "";
+            data.text = profile_image;
 
             return true;
         }

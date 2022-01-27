@@ -13,11 +13,11 @@ public class GameManagerNetwork : MonoBehaviour
     [SerializeField] GameObject Timeline;
     [SerializeField] GameObject HowToPlayCanvas;
     [SerializeField] GameObject Matchmaking;
-  //  [SerializeField] GameObject TableRow2;
+    //  [SerializeField] GameObject TableRow2;
 
 
 
-
+    [SerializeField] Image endGameTimer;
 
    // [SerializeField] Text scoreTextHolder;
      public Text OpponentScoreTextHolder;
@@ -76,6 +76,30 @@ public class GameManagerNetwork : MonoBehaviour
         StartCoroutine(startOnlinePlay());
     }
 
+    private void Update()
+    {
+        
+    }
+
+    public void startReloadGameTime()
+    {
+        StartCoroutine(EndGameTimeFill());
+    }
+
+    IEnumerator EndGameTimeFill()
+    {
+        while (true)
+        {
+            endGameTimer.fillAmount += 0.01f;
+            yield return new WaitForSecondsRealtime(0.2f);
+            if (endGameTimer.fillAmount == 1)
+            {
+                SceneManager.LoadScene(0);
+
+            }
+        }
+    }
+
     IEnumerator startOnlinePlay()
     {
         bool isConnected=true;
@@ -122,8 +146,12 @@ public class GameManagerNetwork : MonoBehaviour
                 if (otherPlayer.playerId != null && otherPlayer.playerId != "")
                 {
                     foundOtherPlayer = true;
-                    //if(!otherPlayer.isBot )
-                    //otherText.text=otherPlayer.playerName;
+                   
+                    otherText.text=otherPlayer.playerName;
+                    if(otherPlayer.isBot)
+                    {
+                        otherPlayer.imageURL = "https://picsum.photos/400";
+                    }
                     //else
                     //{
                     //    otherText.text = "RoboGUEST";
@@ -229,6 +257,8 @@ public class GameManagerNetwork : MonoBehaviour
                             scoreOnScoreBoard.text = otherPlayer.score.ToString();
                             opponentScoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
                         }
+
+                        startReloadGameTime();
                         // StartCoroutine(CallLeaveRoom());
                         sendWinningDetailsData = JsonUtility.ToJson(winningDetails);
                         sendNewData1 = JsonUtility.ToJson(sendThisPlayerData);
