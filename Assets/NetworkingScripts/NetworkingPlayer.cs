@@ -15,6 +15,8 @@ public class NetworkingPlayer
     public bool iWon = false;
     public int playerDisconnectionCounter = 3;
     public bool isConnected = false;
+    public bool isBot = false;
+    public float[] incrementFactor;
 }
 
 

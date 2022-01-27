@@ -8,31 +8,7 @@ using TMPro;
 
 public class GameManagerNetwork : MonoBehaviour
 {
-    //[SerializeField] List<GameObject> easyLogs;
-    //[SerializeField] List<GameObject> hardLogs;
-    //[SerializeField] List<GameObject> bossLogs;
-    //[SerializeField] GameObject knifePrefab;
-    //[SerializeField] ParticleSystem breakEffect;
-    //[SerializeField] GameObject pointsPrefab;
-    //[SerializeField] Transform canvas;
-   // public Transform knifeHolder;
-    //GameObject knife;
-    //List<GameObject> currentEasyLogs, currentHardLogs, currentBossLogs;
-    ////GameObject currentHinge;
-    //GameObject currentLog;
-    //public GameObject TouchBlocker;
-    //public GameObject TouchBlockerWhenLogIsDestroyed;
-    //Vector3 spawnPosition;
-    //Vector3 daggerSpawnPosition;
-    //public Text inGameTimer;
-    //int inGameTime;
-    //[SerializeField] Image endGameTimer;
-    //int endGameTime = 3;
-    //GameObject Flash;
-    //GameObject current;
-    //int id;
-    //int points = 5;
-
+    
 
     [SerializeField] GameObject Timeline;
     [SerializeField] GameObject HowToPlayCanvas;
@@ -44,7 +20,7 @@ public class GameManagerNetwork : MonoBehaviour
 
 
    // [SerializeField] Text scoreTextHolder;
-    [SerializeField] Text OpponentScoreTextHolder;
+     public Text OpponentScoreTextHolder;
     [SerializeField] TextMeshProUGUI WinnerNameText;
     [SerializeField] TextMeshProUGUI scoreOnScoreBoard;
     [SerializeField] TextMeshProUGUI opponentScoreOnScoreBoard;
@@ -55,7 +31,8 @@ public class GameManagerNetwork : MonoBehaviour
     [SerializeField] TextMeshProUGUI displayWinnerOrLosserText;
     //int levelCounter = 1;
     //string currentTag;
-   // public GameObject knifeImage;
+    // public GameObject knifeImage;
+    public bool isDataSend = false;
     int score;
     [SerializeField]TextMeshProUGUI StageText;
     public bool isGameOver;
@@ -64,21 +41,38 @@ public class GameManagerNetwork : MonoBehaviour
     [SerializeField] GameManager gameManager;
     //Networking Variables
 
-    NetworkingPlayer otherPlayer;
+    public NetworkingPlayer otherPlayer;
     //public string serverURL = "http://localhost:3000/";
     public string serverURL = "https://gamejoyproserver1v1.herokuapp.com/";
+    //  public string serverURL = "http://3.109.122.170:4000/";
+
+    public string sendDataURL = "http://52.66.182.199/api/gameplay";
+    public SendData1 sendThisPlayerData;
+    public WinningDetails winningDetails;
+    string sendWinningDetailsData;
+    string sendNewData1;
     public NetworkingPlayer thisPlayer;
     public bool foundOtherPlayer = false;
     public bool canStartGame;
     public bool foundWinner;
     string myRoomId;
     public static GameManagerNetwork instance;
+    public BaseAppData baseAppData;
+    [SerializeField] Image thisPlayerImage;
+    [SerializeField] Image otherPlayerImage;
     private void Awake()
     {
         instance = this;
+        thisText.text = baseAppData.user_name;
+        thisPlayer.playerName = baseAppData.user_name;
+        //thisPlayer.playerId = baseAppData.androidJsonData.player_id;
+
+
+
     }
     private void Start()
     {
+        //thisText.text = baseAppData.jsonString;
         StartCoroutine(startOnlinePlay());
     }
 
@@ -87,6 +81,12 @@ public class GameManagerNetwork : MonoBehaviour
         bool isConnected=true;
         try
         {
+            thisPlayer.imageURL = baseAppData.profile_image;
+            WebRequestHandler.Instance.DownloadSprite(thisPlayer.imageURL, (sprite) =>
+            {
+           //     Debug.Log("hitthis");
+                thisPlayerImage.sprite = sprite;
+            });
             string mydata = JsonUtility.ToJson(thisPlayer);
             WebRequestHandler.Instance.Post(serverURL + "startRoom", mydata, (response, status) => {
 
@@ -122,7 +122,16 @@ public class GameManagerNetwork : MonoBehaviour
                 if (otherPlayer.playerId != null && otherPlayer.playerId != "")
                 {
                     foundOtherPlayer = true;
-                    otherText.text=otherPlayer.playerName;
+                    //if(!otherPlayer.isBot )
+                    //otherText.text=otherPlayer.playerName;
+                    //else
+                    //{
+                    //    otherText.text = "RoboGUEST";
+                    //}
+                    WebRequestHandler.Instance.DownloadSprite(otherPlayer.imageURL, (sprite) =>
+                    {
+                        otherPlayerImage.sprite = sprite;
+                    });
                 }
                 //otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
    
@@ -160,10 +169,12 @@ public class GameManagerNetwork : MonoBehaviour
             thisPlayer.score = gameManager.Bowler.score;
            yield return new WaitForSecondsRealtime(0.5f);
 
-            WebRequestHandler.Instance.Get(serverURL + "fetchscore/" + myRoomId + "/" + thisPlayer.playerId +"/"+ otherPlayer.playerId + "/" + thisPlayer.score, (response, status) => {
+            WebRequestHandler.Instance.Get(serverURL + "fetchscore/" + myRoomId + "/" + thisPlayer.playerId +"/"+ otherPlayer.playerId + "/" + thisPlayer.score + "/" + thisPlayer.incrementFactor, (response, status) => {
 
                 otherPlayer.score = Int32.Parse(response);
                 OpponentScoreTextHolder.text = response;
+                winningDetails.thisplayerScore = gameManager.Bowler.score;
+
                 Debug.Log(response);
                 
                 //otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
@@ -178,6 +189,9 @@ public class GameManagerNetwork : MonoBehaviour
         {
             yield return new WaitForSecondsRealtime(0.5f);
             thisPlayer.score = gameManager.Bowler.score;
+            //if(otherPlayer.isBot)
+            //otherPlayer.score = BatsmenController.instance.totalBotScore;
+
             WebRequestHandler.Instance.Get(serverURL + "getWinner/" + myRoomId + "/" + 
                 thisPlayer.playerId + "/" + otherPlayer.playerId + "/" + thisPlayer.score + "/" + thisPlayer.finishedPlaying + "/" +
                 foundWinner,
@@ -215,7 +229,21 @@ public class GameManagerNetwork : MonoBehaviour
                             scoreOnScoreBoard.text = otherPlayer.score.ToString();
                             opponentScoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
                         }
-                       // StartCoroutine(CallLeaveRoom());
+                        // StartCoroutine(CallLeaveRoom());
+                        sendWinningDetailsData = JsonUtility.ToJson(winningDetails);
+                        sendNewData1 = JsonUtility.ToJson(sendThisPlayerData);
+                        //Debug.Log(sendNewData+"sendNewData");
+                        WebRequestHandler.Instance.Post(sendDataURL, sendNewData1, (response, status) =>
+                        {
+                            Debug.Log(response + "HitNewApi");
+                        });
+
+                        WebRequestHandler.Instance.Post(sendDataURL, sendWinningDetailsData, (response, status) =>
+                        {
+                            Debug.Log(response + "For Winning Details");
+                        });
+
+                        isDataSend = true;
                     }
                     else
                     {

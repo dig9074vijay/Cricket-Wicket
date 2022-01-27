@@ -7,7 +7,7 @@
         <activity android:exported="true"  android:allowEmbedded="true" android:name="com.unity3d.player.UnityPlayerActivity"
                   android:theme="@style/UnityThemeSelector">
             <intent-filter>
-                <action android:name="com.unique.as.CricketClash" />
+                <action android:name="com.unique.as.CricketWicket" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data android:name="unityplayer.UnityActivity" android:value="true" />

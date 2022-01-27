@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isGamePaused = !isGamePaused;
+            Application.Quit();
+            //isGamePaused = !isGamePaused;
            
         }
         if(isGamePaused)

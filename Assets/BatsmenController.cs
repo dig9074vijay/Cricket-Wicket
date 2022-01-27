@@ -13,6 +13,7 @@ public class BatsmenController : MonoBehaviour
     [SerializeField] GameObject EntryWindow;
     [SerializeField] GameObject ExitWindow;
     AudioSource audioSource;
+    public static BatsmenController instance;
     [SerializeField] AudioClip thatsHuge;
     [SerializeField] AudioClip ballHitClip;
     [SerializeField] TextMeshProUGUI Ball1Score;
@@ -24,7 +25,7 @@ public class BatsmenController : MonoBehaviour
     [SerializeField] GameObject BowledTimeline;
     [SerializeField] GameObject Umpire;
     public Animator umpireAnim;
-
+    public int totalBotScore = 0;
     bool displayDistance=false;
     TextMeshPro ballDistance;
     //public BallHitWindow ballHitWindow;
@@ -61,6 +62,7 @@ public class BatsmenController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         anim = GetComponent<Animator>();
         bowlingAnimator = bowlController.GetComponent<Animator>();
         HitTimePosition = HitTime.GetComponent<RectTransform>();
@@ -164,6 +166,13 @@ public class BatsmenController : MonoBehaviour
         StartCoroutine(HitWithBoom());
         audioSource.clip = ballHitClip;
         audioSource.Play();
+        //if (GameManagerNetwork.instance.otherPlayer.isBot)
+        //{
+        //    int botScore = Random.Range(1, 7);
+        //    //GameManagerNetwork.instance.otherPlayer.score += botScore;
+        //    totalBotScore += botScore;
+        //    GameManagerNetwork.instance.OpponentScoreTextHolder.text = botScore.ToString();
+        //}
         if (HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
         {
             runIndex = Random.Range(3, 5);
@@ -245,6 +254,13 @@ public class BatsmenController : MonoBehaviour
 
     public void OffShot()
     {
+        //if (GameManagerNetwork.instance.otherPlayer.isBot)
+        //{
+        //    int botScore = Random.Range(1, 7);
+        //    //GameManagerNetwork.instance.otherPlayer.score += botScore;
+        //    totalBotScore += botScore;
+        //    GameManagerNetwork.instance.OpponentScoreTextHolder.text = botScore.ToString();
+        //}
 
         StartCoroutine(HitWithBoom());
         audioSource.clip = ballHitClip;
