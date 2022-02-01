@@ -80,7 +80,9 @@ public class BatsmenController : MonoBehaviour
 
     //batsmen shot animations called from the button clicks
     public void PlayLeg() {
-      //  Time.timeScale = 1f;
+        GameManager.instance.isGamePaused = false;
+
+        //  Time.timeScale = 1f;
         //Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         HitTimePosition.localPosition = new Vector3(0f,Remap(bowlController.newBall.transform.position.z, -7.23f,-4.2f,-32f, 34f),0f);
@@ -118,7 +120,9 @@ public class BatsmenController : MonoBehaviour
 
     public void PlayOff()
     {
-      // Time.timeScale = 1f;
+        GameManager.instance.isGamePaused = false;
+
+        // Time.timeScale = 1f;
         //Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
         HitTimePosition.localPosition = new Vector3(0f, Remap(bowlController.newBall.transform.position.z, -4.2f, -7.23f, 34f, -32f), 0f);
@@ -254,6 +258,7 @@ public class BatsmenController : MonoBehaviour
 
     public void OffShot()
     {
+
         //if (GameManagerNetwork.instance.otherPlayer.isBot)
         //{
         //    int botScore = Random.Range(1, 7);

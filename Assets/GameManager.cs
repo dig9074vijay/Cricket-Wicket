@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-
+    public static GameManager instance;
     public bool isStart = false;   
-    private bool isGamePaused = true;
+    public bool isGamePaused = true;
     public int count;
     public Text textCountdown;
     public Canvas GameOver;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        instance = this;
         //Invoke("StartGameAfterTimeline", 9.5f);
    
 
@@ -71,7 +71,8 @@ public class GameManager : MonoBehaviour
         else
         {
             ResumeGame();
-        } 
+        }
+       // Time.timeScale += 0.5f * Time.unscaledDeltaTime;
     }
 
 
@@ -133,20 +134,25 @@ public class GameManager : MonoBehaviour
 
     void PauseGame()
     {
-        Time.timeScale = 0;
-        //  Time.fixedDeltaTime = 0.02f * Time.timeScale;
+      //  Time.timeScale = 0;
+        ////  Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        Time.timeScale = 0.5f;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
     }
-    void ResumeGame()
+    public void ResumeGame()
     {
         Time.timeScale = 1;
-      //  Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
     }
 
     public void SlowGame()
     {
-        Time.timeScale = 0.5f;
+        Debug.Log("Game Slow");
+        Time.timeScale = 0.1f;
+        
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
     }
 
     IEnumerator StartCount() {

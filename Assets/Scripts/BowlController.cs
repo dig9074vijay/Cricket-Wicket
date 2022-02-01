@@ -136,6 +136,7 @@ public class BowlController : MonoBehaviour
     {
         EarlyLateBar.SetActive(false);
         newBall.SetActive(true);
+        GameManager.instance.isGamePaused = true;
         canSwing = true;
         //newBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,-10f,30f) * throwingSpeed, ForceMode.Impulse);
         // Debug.Log("ThrowBall Invoked");
@@ -143,7 +144,8 @@ public class BowlController : MonoBehaviour
         //Time.fixedDeltaTime = 0.02f * Time.timeScale;
         Debug.Log(Time.timeScale);
      //   Time.fixedDeltaTime
-        newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed - error, ForceMode.Impulse);
+        newBall.GetComponent<Rigidbody>().AddForce(throwingDirection * throwingSpeed - error, ForceMode.Impulse );
+      //  newBall.GetComponent<Rigidbody>().velocity = throwingDirection * throwingSpeed - error;
     }
 
     public GameObject NewBallCreated()
