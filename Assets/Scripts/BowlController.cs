@@ -136,7 +136,7 @@ public class BowlController : MonoBehaviour
     {
         EarlyLateBar.SetActive(false);
         newBall.SetActive(true);
-        GameManager.instance.isGamePaused = true;
+        GameManager.instance.isGameSlow = true;
         canSwing = true;
         //newBall.GetComponent<Rigidbody>().AddForce(new Vector3(0,-10f,30f) * throwingSpeed, ForceMode.Impulse);
         // Debug.Log("ThrowBall Invoked");

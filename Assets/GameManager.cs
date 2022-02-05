@@ -10,7 +10,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance;
     public bool isStart = false;   
-    public bool isGamePaused = true;
+    public bool isGamePaused=true;
+    public bool isGameSlow = false;
+
     public int count;
     public Text textCountdown;
     public Canvas GameOver;
@@ -72,7 +74,16 @@ public class GameManager : MonoBehaviour
         {
             ResumeGame();
         }
-       // Time.timeScale += 0.5f * Time.unscaledDeltaTime;
+
+        if (isGameSlow)
+        {
+            SlowGame();
+        }
+        else if(!isGamePaused)
+        {
+            ResumeGameSpeed();
+        }
+        // Time.timeScale += 0.5f * Time.unscaledDeltaTime;
     }
 
 
@@ -117,11 +128,11 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(StartCount());
         Bowler.gameObject.SetActive(true);
-        //Batsmen.SetActive(true);
+      //Batsmen.SetActive(true);
         mainCamera.enabled = true;
         stadiumCamera.enabled = false;
         mainCamera.gameObject.GetComponent<Animator>().Play("StartCamera");
-        //  batsmenCamera.enabled = false;
+      //batsmenCamera.enabled = false;
         Batsmen.GetComponent<Animator>().Play("BatsManIdle_01");
         LCD.gameObject.SetActive(true);
 
@@ -132,12 +143,22 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void PauseGame()
+    void SlowGame()
     {
-      //  Time.timeScale = 0;
-        ////  Time.fixedDeltaTime = 0.02f * Time.timeScale;
+     // Time.timeScale = 0;
+     // Time.fixedDeltaTime = 0.02f * Time.timeScale;
         Time.timeScale = 0.5f;
         Time.fixedDeltaTime = Time.timeScale * 0.02f;
+
+    }
+   
+
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+        //Time.timeScale = 0.5f;
+        //Time.fixedDeltaTime = Time.timeScale * 0.02f;
 
     }
     public void ResumeGame()
@@ -146,14 +167,20 @@ public class GameManager : MonoBehaviour
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
 
     }
-
-    public void SlowGame()
+    public void ResumeGameSpeed()
     {
-        Debug.Log("Game Slow");
-        Time.timeScale = 0.1f;
-        
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        Time.timeScale = 1;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+
     }
+
+    //public void SlowGame()
+    //{
+    //    Debug.Log("Game Slow");
+    //    Time.timeScale = 0.1f;
+
+    //    Time.fixedDeltaTime = Time.timeScale * 0.02f;
+    //}
 
     IEnumerator StartCount() {
 

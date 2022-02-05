@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MilkShake;
+//using MilkShake;
 using TMPro;
 
 
@@ -78,9 +78,14 @@ public class BatsmenController : MonoBehaviour
         ballDistance.text = "+" + (Vector3.Distance(bowlController.newBall.transform.position, transform.position)).ToString("0") + "m";
     }
 
+    private void FixedUpdate()
+    {
+      
+    }
+
     //batsmen shot animations called from the button clicks
     public void PlayLeg() {
-        GameManager.instance.isGamePaused = false;
+        GameManager.instance.isGameSlow = false;
 
         //  Time.timeScale = 1f;
         //Time.fixedDeltaTime = 0.02f * Time.timeScale;
@@ -120,7 +125,7 @@ public class BatsmenController : MonoBehaviour
 
     public void PlayOff()
     {
-        GameManager.instance.isGamePaused = false;
+        GameManager.instance.isGameSlow = false;
 
         // Time.timeScale = 1f;
         //Time.fixedDeltaTime = 0.02f * Time.timeScale;
@@ -170,6 +175,7 @@ public class BatsmenController : MonoBehaviour
         StartCoroutine(HitWithBoom());
         audioSource.clip = ballHitClip;
         audioSource.Play();
+        CameraShake.Shake(0.2f, 0.2f);
         //if (GameManagerNetwork.instance.otherPlayer.isBot)
         //{
         //    int botScore = Random.Range(1, 7);
@@ -269,6 +275,8 @@ public class BatsmenController : MonoBehaviour
 
         StartCoroutine(HitWithBoom());
         audioSource.clip = ballHitClip;
+        CameraShake.Shake(0.2f, 0.2f);
+
 
         audioSource.Play();
         if (HitTimePosition.localPosition.y <= 12f && HitTimePosition.localPosition.y >= -12f)
@@ -578,6 +586,7 @@ public class BatsmenController : MonoBehaviour
         look.FollowBall();
         ballDistance = bowlController.newBall.transform.GetChild(0).gameObject.GetComponent<TextMeshPro>();
         bowlController.newBall.transform.GetChild(0).gameObject.SetActive(true);
+        //bowlController.newBall.transform.GetChild(0).gameObject.transform.rotation = - bowlController.newBall.transform.rotation;
         displayDistance = true;
         Invoke("BackPitch", 1.5f);
 

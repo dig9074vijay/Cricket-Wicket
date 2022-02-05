@@ -37,6 +37,8 @@ public class LookAtBall : MonoBehaviour
 
             transform.LookAt(target);
         }
+
+    
     }
 
     public void FollowBall()
