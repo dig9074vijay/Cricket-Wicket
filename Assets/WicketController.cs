@@ -8,6 +8,8 @@ public class WicketController : MonoBehaviour
     [SerializeField] BowlController bowlController;
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject BowledTimeline;
+    [SerializeField] AudioClip BowledClip;
+
     //  public GameObject outDisplay;
     [SerializeField] BatsmenController batsmenController;
    // BowlController bowlControllerWicket;

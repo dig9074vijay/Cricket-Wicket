@@ -16,6 +16,18 @@ public class BatsmenController : MonoBehaviour
     public static BatsmenController instance;
     [SerializeField] AudioClip thatsHuge;
     [SerializeField] AudioClip ballHitClip;
+    [SerializeField] AudioClip[] SixClip;
+    [SerializeField] AudioClip[] FourClip;
+    [SerializeField] AudioClip BoundaryClip;
+
+    [SerializeField] AudioClip BatsmenhRhythmClip;
+    [SerializeField] AudioClip MissClip;
+    [SerializeField] AudioClip Bowled;
+
+
+
+
+
     [SerializeField] TextMeshProUGUI Ball1Score;
     [SerializeField] TextMeshProUGUI Ball2Score;
     [SerializeField] TextMeshProUGUI Ball3Score;
@@ -68,6 +80,8 @@ public class BatsmenController : MonoBehaviour
         HitTimePosition = HitTime.GetComponent<RectTransform>();
         audioSource = GetComponent<AudioSource>();
         umpireAnim = Umpire.GetComponent<Animator>();
+        StartCoroutine(BatsmenRhythmClip());
+
     }
 
     // Update is called once per frame
@@ -82,6 +96,8 @@ public class BatsmenController : MonoBehaviour
     {
       
     }
+
+    
 
     //batsmen shot animations called from the button clicks
     public void PlayLeg() {
@@ -117,6 +133,8 @@ public class BatsmenController : MonoBehaviour
                 index = Random.Range(0, 3);
                 anim.SetTrigger(legShots[index]);
                 StartCoroutine(MissDisplay());
+                audioSource.clip = MissClip;
+                audioSource.Play();
 
             }
             bowlController.canSwing = false;
@@ -158,7 +176,8 @@ public class BatsmenController : MonoBehaviour
 
                 anim.SetTrigger(offShots[index]);
                 StartCoroutine(MissDisplay());
-
+                audioSource.clip = MissClip;
+                audioSource.Play();
             }
             bowlController.canSwing = false;
         }
@@ -190,13 +209,17 @@ public class BatsmenController : MonoBehaviour
             {
                 legForce = new Vector3(-6f, 3f, 10f);
                 umpireAnim.Play("Four");
+                StartCoroutine(PlayFourSound());
+
+
             }
 
             else
             {
                 legForce = new Vector3(-7f, 6f, 13f);
                 umpireAnim.Play("Six");
-
+                StartCoroutine(PlaySixSound());
+                
             }
         }
         else
@@ -286,11 +309,14 @@ public class BatsmenController : MonoBehaviour
             {
                 offForce = new Vector3(6f, 3f, 9f);
                 umpireAnim.Play("Four");
+                StartCoroutine(PlayFourSound());
+
             }
             else
             {
                 offForce = new Vector3(8f, 8f, 12f);
                 umpireAnim.Play("Six");
+                StartCoroutine(PlaySixSound());
 
             }
         }
@@ -372,6 +398,7 @@ public class BatsmenController : MonoBehaviour
         Boom.SetActive(false);
         Debug.Log("HitWithBoom");
         yield return new WaitForSeconds(0.5f);
+       
         //  anim.StartPlayback("BattingIdle_01 0");
         anim.enabled = false;
         bowlController.newBall.GetComponent<TrailRenderer>().enabled = true;
@@ -401,8 +428,10 @@ public class BatsmenController : MonoBehaviour
     }
 
     IEnumerator BoundaryEffectDisplay() {
-      
+
+
         displayParticles = true;
+       
         yield return new WaitForSeconds(1.5f);
         
         displayParticles = false;
@@ -592,8 +621,31 @@ public class BatsmenController : MonoBehaviour
 
     }
 
+    IEnumerator BatsmenRhythmClip()
+    {
+        yield return new WaitForSeconds(9f);
+        audioSource.clip = BatsmenhRhythmClip;
+        audioSource.Play();
+    }
+
     void BackPitch()
     {
         displayDistance = false;
+    }
+
+    IEnumerator PlaySixSound()
+    {
+        yield return new WaitForSeconds(0.3f);
+        int sixClipIndex = Random.Range(0, 2);
+        audioSource.clip = SixClip[sixClipIndex];
+        audioSource.Play();
+    }
+
+    IEnumerator PlayFourSound()
+    {
+        yield return new WaitForSeconds(0.3f);
+        int sixClipIndex = Random.Range(0, 2);
+        audioSource.clip = FourClip[sixClipIndex];
+        audioSource.Play();
     }
 }

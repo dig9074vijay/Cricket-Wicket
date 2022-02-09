@@ -7486,6 +7486,7 @@ MonoBehaviour:
   bowlController: {fileID: 1964314493}
   audioSource: {fileID: 0}
   BowledTimeline: {fileID: 1976646311}
+  BowledClip: {fileID: 0}
   batsmenController: {fileID: 2082351682}
 --- !u!82 &532873444
 AudioSource:
@@ -14511,7 +14512,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 233.6
-  field of view: 70
+  field of view: 65
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -14537,7 +14538,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.05033132, y: 0.00012298339, z: -0.0024403718, w: 0.9987296}
-  m_LocalPosition: {x: 0.19, y: 1.73, z: -9.78}
+  m_LocalPosition: {x: 0.19, y: 1.58, z: -9.78}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14855,7 +14856,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7bda9015fa421463f8076afa3a75258a, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 54589d47760092148a0e3ac2ce2dbf13, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.4
   m_Pitch: 1
@@ -19758,6 +19759,24 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 95211337437805716, guid: 720d234ff368fdb4da7184f25066bb0c, type: 3}
   m_PrefabInstance: {fileID: 1964314491}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1970100467 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4611802969882721669, guid: be148e81191d5401c8d8705384534f74, type: 3}
+  m_PrefabInstance: {fileID: 2020402464676823638}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1970100471
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970100467}
+  m_Material: {fileID: 13400000, guid: 0ef6b199b4a3a4920b8fed509e9c48c6, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 25.110197, y: 0.0000045621387, z: 25.090155}
+  m_Center: {x: -0.0020947454, y: -0.0000031341704, z: -0.00029993054}
 --- !u!1 &1976646311
 GameObject:
   m_ObjectHideFlags: 0
@@ -20539,6 +20558,16 @@ MonoBehaviour:
   ExitWindow: {fileID: 1344808529}
   thatsHuge: {fileID: 8300000, guid: 14637580b880b437ebff8519eec47838, type: 3}
   ballHitClip: {fileID: 8300000, guid: 4a4313eb5216a4ecda3a2c4bf7fe17e8, type: 3}
+  SixClip:
+  - {fileID: 8300000, guid: 60dca3baeb513fb49a6bbeeac17753c7, type: 3}
+  - {fileID: 8300000, guid: ae817278395144b4da472f3a31f72fe9, type: 3}
+  FourClip:
+  - {fileID: 8300000, guid: 1cb0aeb69af6e8b4fbdeb25461436ea8, type: 3}
+  - {fileID: 8300000, guid: ebb5b0f056aabd640aaffcdbc8fbeb56, type: 3}
+  BoundaryClip: {fileID: 0}
+  BatsmenhRhythmClip: {fileID: 8300000, guid: 418729286a7a90645822ba0aa60f85c1, type: 3}
+  MissClip: {fileID: 8300000, guid: dfe17fff90d6c0c47b7732e29e577e93, type: 3}
+  Bowled: {fileID: 8300000, guid: a74bc834f09eddf4fbf7cb3af8b48b6b, type: 3}
   Ball1Score: {fileID: 1791960733}
   Ball2Score: {fileID: 22240741}
   Ball3Score: {fileID: 1997832962}
@@ -20722,6 +20751,22 @@ PrefabInstance:
     - target: {fileID: 2024926936200586990, guid: be148e81191d5401c8d8705384534f74, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2639589519685487506, guid: be148e81191d5401c8d8705384534f74, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2639589519685487506, guid: be148e81191d5401c8d8705384534f74, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2639589519685487506, guid: be148e81191d5401c8d8705384534f74, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3452682025209876776, guid: be148e81191d5401c8d8705384534f74, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be148e81191d5401c8d8705384534f74, type: 3}

@@ -19,7 +19,7 @@ public class LookAtBall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initialPos = new Vector3(0.19f, 1.73f, -9.78f);
+        initialPos = new Vector3(0.19f, 1.58f, -9.78f);
         initialRot = new Quaternion(0.0503314f, 0f, -0.00244f, 0.9987296f);
         anim = GetComponent<Animator>();
        // Invoke("PlayCameraAnimation", 8.4f);
