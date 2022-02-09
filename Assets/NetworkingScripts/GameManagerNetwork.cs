@@ -60,6 +60,14 @@ public class GameManagerNetwork : MonoBehaviour
     public BaseAppData baseAppData;
     [SerializeField] Image thisPlayerImage;
     [SerializeField] Image otherPlayerImage;
+
+
+    [SerializeField] Image thisPlayerImageTopStrip;
+    [SerializeField] Image otherPlayerImageTopStrip;
+
+    [SerializeField] Image thisPlayerImageEnd;
+    [SerializeField] Image otherPlayerImageEnd;
+
     private void Awake()
     {
         instance = this;
@@ -112,6 +120,8 @@ public class GameManagerNetwork : MonoBehaviour
             {
            //     Debug.Log("hitthis");
                 thisPlayerImage.sprite = sprite;
+                thisPlayerImageTopStrip.sprite = sprite;
+
             });
             string mydata = JsonUtility.ToJson(thisPlayer);
             WebRequestHandler.Instance.Post(serverURL + "startRoom", mydata, (response, status) => {
@@ -153,6 +163,8 @@ public class GameManagerNetwork : MonoBehaviour
                     if(otherPlayer.isBot)
                     {
                         otherPlayer.imageURL = "https://picsum.photos/400";
+                     
+                       
                     }
                     //else
                     //{
@@ -161,6 +173,7 @@ public class GameManagerNetwork : MonoBehaviour
                     WebRequestHandler.Instance.DownloadSprite(otherPlayer.imageURL, (sprite) =>
                     {
                         otherPlayerImage.sprite = sprite;
+                        otherPlayerImageTopStrip.sprite = sprite;
                     });
                 }
                 //otherPlayer = JsonUtility.FromJson<NetworkingPlayer>(response);
@@ -238,6 +251,8 @@ public class GameManagerNetwork : MonoBehaviour
                             Debug.Log(thisPlayer.playerName + " won with score " + thisPlayer.score);
                             WinnerNameText.text = thisPlayer.playerName;
                             LosserNameText.text = otherPlayer.playerName;
+                            thisPlayerImageEnd.sprite = thisPlayerImage.sprite;
+                            otherPlayerImageEnd.sprite = otherPlayerImage.sprite;
                             StageText.text = "1";
                           //  displayWinnerOrLosserText.text = "YOU WON";
                            // displayScoreTextAtEnd.text = thisPlayer.score.ToString();
@@ -253,6 +268,8 @@ public class GameManagerNetwork : MonoBehaviour
                             WinnerNameText.text = otherPlayer.playerName;
                             LosserNameText.text = thisPlayer.playerName;
                             StageText.text = "2";
+                            thisPlayerImageEnd.sprite = otherPlayerImage.sprite;
+                            otherPlayerImageEnd.sprite = thisPlayerImage.sprite;
 
                             //  displayWinnerOrLosserText.text = "YOU LOSE";
                             //   displayScoreTextAtEnd.text = thisPlayer.score.ToString();

@@ -86,6 +86,7 @@ public class BowlController : MonoBehaviour
     }
 
     public void destroyBall() {
+        GameManager.instance.isGameSlow = false;
         Destroy(newBall);
         EarlyLateBar.SetActive(true);
         
