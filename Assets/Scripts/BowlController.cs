@@ -15,7 +15,11 @@ public class BowlController : MonoBehaviour
     [SerializeField] WicketController wicketController;
     public int noOfBalls = 0;
     int ballTypeIndex = 0;
+   // public static BowlController instance;
     [SerializeField] Transform TipSpot;
+     [SerializeField] AudioClip BatsmenRhythmClip;
+    [SerializeField] AudioSource audioSource;
+
     [SerializeField] float throwingSpeed = 5f;
     [SerializeField] Vector3 throwingDirection = new Vector3(0,-10,-30);
     [SerializeField] Vector3 spinDirection = new Vector3(0, 0, 0);
@@ -52,6 +56,8 @@ public class BowlController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+   //     instance = this;
+        StartCoroutine(PlayBatsmenRhythmClip());
         bowlingAnimator = GetComponent<Animator>();
         Over.text = "Over: "+ noOfBalls.ToString() + "/2";
         Score.text = "Score: " + score.ToString();
@@ -224,4 +230,13 @@ public class BowlController : MonoBehaviour
             //fast = false;
         }
     }
+
+
+    IEnumerator PlayBatsmenRhythmClip()
+    {
+        yield return new WaitForSeconds(2f);
+        audioSource.clip = BatsmenRhythmClip;
+        audioSource.Play();
+    }
+
 }

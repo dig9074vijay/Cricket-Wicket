@@ -20,7 +20,7 @@ public class BatsmenController : MonoBehaviour
     [SerializeField] AudioClip[] FourClip;
     [SerializeField] AudioClip BoundaryClip;
 
-    [SerializeField] AudioClip BatsmenhRhythmClip;
+  //  [SerializeField] AudioClip BatsmenhRhythmClip;
     [SerializeField] AudioClip MissClip;
     [SerializeField] AudioClip Bowled;
 
@@ -80,7 +80,7 @@ public class BatsmenController : MonoBehaviour
         HitTimePosition = HitTime.GetComponent<RectTransform>();
         audioSource = GetComponent<AudioSource>();
         umpireAnim = Umpire.GetComponent<Animator>();
-        StartCoroutine(BatsmenRhythmClip());
+    //    StartCoroutine(BatsmenRhythmClip());
 
     }
 
@@ -109,7 +109,8 @@ public class BatsmenController : MonoBehaviour
         HitTimePosition.localPosition = new Vector3(0f,Remap(bowlController.newBall.transform.position.z, -7.23f,-4.2f,-32f, 34f),0f);
         if (bowlController.canSwing)
         {
-            if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit && bowlController.canPlayLeg)
+            //if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit && bowlController.canPlayLeg)
+            if (/*bowlController.transform.position.z < 2.9f */ BallHitWindow.canHit )
             {
                 index = Random.Range(0, 3);
           
@@ -152,7 +153,8 @@ public class BatsmenController : MonoBehaviour
 
         if (bowlController.canSwing)
         {
-            if (BallHitWindow.canHit && bowlController.canPlayOff)
+            //if (BallHitWindow.canHit && bowlController.canPlayOff)
+            if (BallHitWindow.canHit )
             {
                 index = Random.Range(0, 3);
                 Debug.Log(offShots[index]);
@@ -621,12 +623,12 @@ public class BatsmenController : MonoBehaviour
 
     }
 
-    IEnumerator BatsmenRhythmClip()
-    {
-        yield return new WaitForSeconds(9f);
-        audioSource.clip = BatsmenhRhythmClip;
-        audioSource.Play();
-    }
+    //IEnumerator BatsmenRhythmClip()
+    //{
+    //    yield return new WaitForSeconds(9f);
+    //    audioSource.clip = BatsmenhRhythmClip;
+    //    audioSource.Play();
+    //}
 
     void BackPitch()
     {
