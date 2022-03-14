@@ -21,7 +21,7 @@ public class BatsmenController : MonoBehaviour
     [SerializeField] AudioClip BoundaryClip;
 
   //  [SerializeField] AudioClip BatsmenhRhythmClip;
-    [SerializeField] AudioClip MissClip;
+   // [SerializeField] AudioClip MissClip;
     [SerializeField] AudioClip Bowled;
 
 
@@ -134,8 +134,8 @@ public class BatsmenController : MonoBehaviour
                 index = Random.Range(0, 3);
                 anim.SetTrigger(legShots[index]);
                 StartCoroutine(MissDisplay());
-                audioSource.clip = MissClip;
-                audioSource.Play();
+                //audioSource.clip = MissClip;
+                //audioSource.Play();
 
             }
             bowlController.canSwing = false;
@@ -178,8 +178,8 @@ public class BatsmenController : MonoBehaviour
 
                 anim.SetTrigger(offShots[index]);
                 StartCoroutine(MissDisplay());
-                audioSource.clip = MissClip;
-                audioSource.Play();
+                //audioSource.clip = MissClip;
+                //audioSource.Play();
             }
             bowlController.canSwing = false;
         }

@@ -47,7 +47,7 @@ public class GameManagerNetwork : MonoBehaviour
     ////public string serverURL = "http://localhost:3000/";
     //public string serverURL = "https://gamejoyproserver1v1.herokuapp.com/";
     ////  public string serverURL = "http://3.109.122.170:4000/";
-
+    [SerializeField] public GameObject matchmaking;
     //public string sendDataURL = "http://52.66.182.199/api/gameplay";
     //public SendData1 sendThisPlayerData;
     //public WinningDetails winningDetails;
@@ -158,7 +158,10 @@ public class GameManagerNetwork : MonoBehaviour
             {
                 //VS.SetActive(false);
                 P2.SetActive(false);
-
+                HowToPlayCanvas.SetActive(true);
+                Matchmaking.SetActive(false);
+                gameManager.gameObject.SetActive(true);
+                Timeline.SetActive(true);
                 if (AndroidtoUnityJSON.instance.entry_type == "re entry paid")
                 {
                     isReEntryPaid = true;
@@ -199,7 +202,7 @@ public class GameManagerNetwork : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.2f);
             if (endGameTimer.fillAmount == 1)
             {
-                SceneManager.LoadScene(0);
+                ReloadScene();
 
             }
         }
@@ -285,7 +288,7 @@ public class GameManagerNetwork : MonoBehaviour
         Timeline.SetActive(true);
 
 
-
+        //goScreen.gameObject.SetActive(true);
 
         canStartGame = true;
 
@@ -411,6 +414,7 @@ public class GameManagerNetwork : MonoBehaviour
                     {
                       //  TableRow2.SetActive(false);
                         foundWinner = true;
+                        startReloadGameTime();
                         NetworkingPlayer winner = JsonUtility.FromJson<NetworkingPlayer>(response);
                         if (winner.playerId == thisPlayer.playerId)
                         {
@@ -519,8 +523,7 @@ public class GameManagerNetwork : MonoBehaviour
         thisText.text = thisPlayer.playerName; //matchamking player name
         //PlayerNameTextHolder.text = thisPlayer.playerName;
 
-        foreach (var ui in GameObject.FindGameObjectsWithTag("SUI"))
-            ui.SetActive(false);
+       
 
       //  goScreen.gameObject.SetActive(true);
 
@@ -566,7 +569,7 @@ public class GameManagerNetwork : MonoBehaviour
             DeductWallet();
         }
 
-        yield return new WaitUntil(() => isGameOver);
+        yield return new WaitUntil(() => gameManager.isGameOver);
 
         thisPlayer.finishedPlaying = true;
 
@@ -632,9 +635,9 @@ public class GameManagerNetwork : MonoBehaviour
                 sendThisPlayerData.winning_details.lossingPlayerScore = "0";
                 WinnerNameText.text = thisPlayer.playerName;
                 //LosserNameText.text = otherPlayer.playerName;
-                displayWinnerOrLosserText.text = "YOU SCORE";
-                displayScoreTextAtEnd.text = thisPlayer.score.ToString();
-                scoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
+             //   displayWinnerOrLosserText.text = "YOU SCORE";
+            //    displayScoreTextAtEnd.text = thisPlayer.score.ToString();
+               // scoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
                 scoreOnScoreBoard.text = thisPlayer.score.ToString();
                 //opponentScoreOnScoreBoard.text = otherPlayer.score.ToString();
 

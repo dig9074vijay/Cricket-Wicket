@@ -61,7 +61,7 @@ public class AndroidtoUnityJSON : MonoBehaviour
             no_of_attempts = "100";
             no_of_players = "2";
             entry_type = "re entry";
-            mm_player = "1";
+            mm_player = "2";
         }
         else
         {
