@@ -70,7 +70,7 @@ public class GameManagerNetwork : MonoBehaviour
     public string walletUpdateURL = "http://52.66.182.199/api/walletdeduction";
     public string getTournAttemptURL = "https://admin.gamejoypro.com/api/getattempts";
     public NetworkingPlayer thisPlayer;
-    private NetworkingPlayer otherPlayer;
+    public NetworkingPlayer otherPlayer;
     public SendData1 sendThisPlayerData;
     public WinningDetails winning_details;
     public WalletInfo walletInfo;
@@ -122,7 +122,7 @@ public class GameManagerNetwork : MonoBehaviour
         instance = this;
         thisText.text = AndroidtoUnityJSON.instance.user_name;
         thisPlayer.playerName = AndroidtoUnityJSON.instance.user_name;
-
+        PlayerNameText.text = thisPlayer.playerName;
         if (LocalConnect)
         {
             serverURL = "http://localhost:4000/";
@@ -132,6 +132,14 @@ public class GameManagerNetwork : MonoBehaviour
     }
     private void Start()
     {
+
+        Debug.Log("android data => " +
+            AndroidtoUnityJSON.instance.player_id + ", " + AndroidtoUnityJSON.instance.token + ", " + AndroidtoUnityJSON.instance.user_name + ", " +
+            AndroidtoUnityJSON.instance.game_id + ", " + AndroidtoUnityJSON.instance.profile_image + ", " + AndroidtoUnityJSON.instance.game_fee + ", " +
+            AndroidtoUnityJSON.instance.game_mode + ", " + AndroidtoUnityJSON.instance.battle_id + ", " + AndroidtoUnityJSON.instance.tour_id + ", " +
+            AndroidtoUnityJSON.instance.tour_mode + ", " + AndroidtoUnityJSON.instance.tour_name + ", " + AndroidtoUnityJSON.instance.no_of_attempts + ", " +
+            AndroidtoUnityJSON.instance.mm_player + ", " + AndroidtoUnityJSON.instance.entry_type);
+        thisPlayer.gameName = thisPlayer.gameName + AndroidtoUnityJSON.instance.game_fee;
         if (AndroidtoUnityJSON.instance.game_mode == "tour")
         {
             if (AndroidtoUnityJSON.instance.mm_player == "2")
@@ -237,6 +245,7 @@ public class GameManagerNetwork : MonoBehaviour
                 sendThisPlayerData.player_id = AndroidtoUnityJSON.instance.player_id;
                 thisPlayer.playerName = player.playerName;
                 myRoomId = player.RoomID;
+                sendThisPlayerData.player_id = thisPlayer.playerIdToBeSentorReceived;
                 sendThisPlayerData.room_id = myRoomId;
                 Debug.Log("My Room is " + thisPlayer.RoomID);
             });
@@ -431,8 +440,9 @@ public class GameManagerNetwork : MonoBehaviour
                             thisPlayerImageEnd.sprite = thisPlayerImage.sprite;
                             otherPlayerImageEnd.sprite = otherPlayerImage.sprite;
                             StageText.text = "1";
-                          //  displayWinnerOrLosserText.text = "YOU WON";
-                           // displayScoreTextAtEnd.text = thisPlayer.score.ToString();
+                            sendThisPlayerData.game_status = "WIN";
+                            //  displayWinnerOrLosserText.text = "YOU WON";
+                            // displayScoreTextAtEnd.text = thisPlayer.score.ToString();
                             scoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
                             opponentScoreOnScoreBoard.text = otherPlayer.score.ToString();
 
@@ -461,8 +471,8 @@ public class GameManagerNetwork : MonoBehaviour
                             opponentScoreOnScoreBoard.text = gameManager.Bowler.score.ToString();
                         }
 
-
-
+                        sendThisPlayerData.player_id = otherPlayer.playerId;
+                        sendThisPlayerData.winning_details.thisplayerScore = gameManager.Bowler.score;
                         sendThisPlayerData.wallet_amt = AndroidtoUnityJSON.instance.game_fee.ToString();
                         sendThisPlayerData.game_mode = AndroidtoUnityJSON.instance.game_mode;
                         sendThisPlayerData.game_id = AndroidtoUnityJSON.instance.game_id;
@@ -475,7 +485,7 @@ public class GameManagerNetwork : MonoBehaviour
 
 
                         sendThisPlayerData.game_end_time = GetSystemTime();
-                        sendThisPlayerData.game_status = "FINISHED";
+//sendThisPlayerData.game_status = "FINISHED";
 
                         string sendWinningDetailsData = JsonUtility.ToJson(winning_details);
                         string sendNewData = JsonUtility.ToJson(sendThisPlayerData);
@@ -627,8 +637,9 @@ public class GameManagerNetwork : MonoBehaviour
             {
                 foundWinner = true;
                 thisPlayer.iWon = true;
-                sendThisPlayerData.player_id = AndroidtoUnityJSON.instance.player_id;
+             //   sendThisPlayerData.player_id = AndroidtoUnityJSON.instance.player_id;
                 sendThisPlayerData.room_id = "0";
+
                 sendThisPlayerData.winning_details.winningPlayerScore = gameManager.Bowler.score.ToString();
                 sendThisPlayerData.winning_details.winningPlayerID = AndroidtoUnityJSON.instance.player_id;
                 sendThisPlayerData.winning_details.lossingPlayerID = "0";
@@ -646,6 +657,9 @@ public class GameManagerNetwork : MonoBehaviour
 
                 //send tournament data through api
 
+
+                sendThisPlayerData.player_id = "0";
+                sendThisPlayerData.winning_details.thisplayerScore = gameManager.Bowler.score;
                 sendThisPlayerData.wallet_amt = AndroidtoUnityJSON.instance.game_fee;
                 sendThisPlayerData.game_mode = AndroidtoUnityJSON.instance.game_mode;
                 sendThisPlayerData.game_id = AndroidtoUnityJSON.instance.game_id;
@@ -750,6 +764,8 @@ public class GameManagerNetwork : MonoBehaviour
         }
         else if (isDataSend == false && canStartGame)
         {
+            sendThisPlayerData.player_id = otherPlayer.playerId;
+            sendThisPlayerData.winning_details.thisplayerScore = gameManager.Bowler.score;
             sendThisPlayerData.wallet_amt = AndroidtoUnityJSON.instance.game_fee;
             sendThisPlayerData.player_id = AndroidtoUnityJSON.instance.player_id;
             sendThisPlayerData.game_mode = AndroidtoUnityJSON.instance.game_mode;
